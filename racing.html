@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Racing Games | Simplegames</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-indigo-100 via-purple-100 to-white min-h-screen">
+  <nav class="bg-white/80 backdrop-blur sticky top-0 z-10 shadow-sm">
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+      <div class="flex items-center gap-2">
+        <a href="index.html" class="text-2xl font-bold text-indigo-600">🎮 Simple Games</a>
+      </div>
+      <ul class="flex gap-6 text-gray-700 font-medium text-base">
+        <li><a href="racing.html" class="text-indigo-600 font-bold">Racing Games</a></li>
+        <li><a href="action.html" class="hover:text-indigo-600">Action Games</a></li>
+        <li><a href="puzzle.html" class="hover:text-indigo-600">Puzzle Games</a></li>
+        <li><a href="arcade.html" class="hover:text-indigo-600">Arcade Games</a></li>
+        <li><a href="girls.html" class="hover:text-indigo-600">Girls Games</a></li>
+        <li><a href="simulation.html" class="hover:text-indigo-600">Simulation</a></li>
+      </ul>
+    </div>
+  </nav>
+  <header class="max-w-3xl mx-auto text-center py-12">
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4">🚗 Racing Games</h1>
+    <p class="text-lg sm:text-xl text-gray-600 mb-6">Enjoy the best racing games online. Fast, fun, and free!</p>
+  </header>
+  <main class="max-w-6xl mx-auto px-4 pb-16">
+    <div id="games-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+  </main>
+  <footer class="border-t pt-6 pb-4 text-center text-gray-500 text-sm bg-white/80 mt-8">
+    &copy; 2025 simplegames.info - Your source for the best simple online games.
+  </footer>
+  <script>
+  async function loadGames() {
+    const res = await fetch('games.json');
+    const games = await res.json();
+    const racingGames = games.filter(g => g.category === 'racing');
+    const list = document.getElementById('games-list');
+    if (!racingGames.length) {
+      list.innerHTML = '<div class="text-gray-500">No racing games found.</div>';
+      return;
+    }
+    list.innerHTML = racingGames.map(g => `
+      <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+        <img src="${g.cover || ''}" alt="${g.title}" class="rounded mb-2 w-full h-32 object-cover" onerror="this.style.display='none'">
+        <div class="font-semibold text-gray-800 mb-1">${g.title}</div>
+        <div class="text-gray-500 text-sm mb-2 line-clamp-2">${g.desc || ''}</div>
+        <a href="game.html?id=${g.id}" class="mt-auto bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 text-sm">Play</a>
+      </div>
+    `).join('');
+  }
+  loadGames();
+  </script>
+</body>
+</html> 

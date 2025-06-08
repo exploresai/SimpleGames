@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Center | Simple Online Games</title>
+    <title>Simplegames | Online Games EveryWhere!</title>
     <meta name="description" content="Play free simple games online. Enjoy action, puzzle, arcade, and more games instantly!">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,7 +13,7 @@
     <nav class="bg-white/80 backdrop-blur sticky top-0 z-10 shadow-sm">
         <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
             <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold text-indigo-600">🎮 Game Center</span>
+                <span class="text-2xl font-bold text-indigo-600">🎮 Simple Games</span>
             </div>
             <ul class="flex gap-6 text-gray-700 font-medium text-base">
                 <li><a href="#racing" class="hover:text-indigo-600">Racing Games</a></li>
@@ -32,16 +32,11 @@
         <p class="text-lg sm:text-xl text-gray-600 mb-6">Over 30 exciting games waiting for you to experience, supporting PC and mobile devices</p>
     </header>
 
-    <!-- Monster Survivors 游戏嵌入区块 -->
-    <section class="max-w-3xl mx-auto mb-12">
-        <div class="relative w-full pb-[56.25%] bg-black rounded-xl shadow-lg overflow-hidden border border-gray-200">
-            <iframe 
-                src="https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html"
-                class="absolute top-0 left-0 w-full h-full border-0"
-                allowfullscreen="">
-            </iframe>
+    <!-- Puzzle Games Special Section -->
+    <section id="puzzle-section" class="max-w-6xl mx-auto px-4 mb-12">
+        <h2 class="text-3xl font-bold text-indigo-700 mb-4 flex items-center gap-2"><span class="text-2xl">🧩</span> Puzzle Games</h2>
+        <div id="puzzle-games-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         </div>
-        <div class="text-center mt-2 text-gray-500 text-sm">Monster Survivors - Play Now!</div>
     </section>
 
     <!-- 游戏分类区块 -->
@@ -88,5 +83,29 @@
     <footer class="border-t pt-6 pb-4 text-center text-gray-500 text-sm bg-white/80 mt-8">
         &copy; 2025 simplegames.info - Your source for the best simple online games.
     </footer>
+
+    <script>
+    async function loadGames() {
+        const res = await fetch('games.json');
+        const games = await res.json();
+        // Puzzle Games
+        const puzzleGames = games.filter(g => g.category === 'puzzle');
+        const puzzleList = document.getElementById('puzzle-games-list');
+        if (puzzleGames.length) {
+            puzzleList.innerHTML = puzzleGames.map(g => `
+                <div class="bg-white rounded-lg shadow p-8 flex flex-col items-center h-56">
+                    <img src="${g.cover || ''}" alt="${g.title}" class="rounded mb-3 w-full h-32 object-cover" onerror="this.style.display='none'">
+                    <div class="font-semibold text-gray-800 mb-1 text-lg">${g.title}</div>
+                    <div class="text-gray-500 text-sm mb-2 line-clamp-2">${g.desc || ''}</div>
+                    <a href="game.html?id=${g.id}" class="mt-auto bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 text-sm">Play</a>
+                </div>
+            `).join('');
+        } else {
+            puzzleList.innerHTML = '<div class="text-gray-500">No puzzle games found.</div>';
+        }
+        // 其余分类加载逻辑...
+    }
+    loadGames();
+    </script>
 </body>
 </html>

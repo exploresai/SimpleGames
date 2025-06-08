@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Admin | Simplegames</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-indigo-100 via-purple-100 to-white min-h-screen">
+  <div class="max-w-3xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold text-center text-gray-900 mb-6">🎮 游戏管理后台</h1>
+    <form id="game-form" class="bg-white rounded-lg shadow p-6 mb-8">
+      <input type="hidden" id="game-id">
+      <div class="mb-4">
+        <label class="block mb-1 font-medium">游戏名称</label>
+        <input id="game-title" type="text" class="w-full border rounded px-3 py-2" required>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-1 font-medium">iframe地址</label>
+        <input id="game-iframe" type="url" class="w-full border rounded px-3 py-2" required>
+      </div>
+      <div class="mb-4">
+        <label class="block mb-1 font-medium">封面图片地址</label>
+        <input id="game-cover" type="url" class="w-full border rounded px-3 py-2">
+      </div>
+      <div class="mb-4">
+        <label class="block mb-1 font-medium">简介</label>
+        <textarea id="game-desc" class="w-full border rounded px-3 py-2"></textarea>
+      </div>
+      <div class="flex gap-4">
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700">保存</button>
+        <button type="button" id="reset-btn" class="bg-gray-200 px-6 py-2 rounded hover:bg-gray-300">重置</button>
+      </div>
+    </form>
+    <div class="flex justify-between items-center mb-2">
+      <h2 class="text-xl font-semibold">游戏列表</h2>
+      <button id="export-btn" class="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 text-sm">导出JSON</button>
+    </div>
+    <div id="games-list" class="space-y-4"></div>
+  </div>
+  <script>
+  let games = [];
+  let editingId = null;
+
+  // 加载games.json
+  async function loadGames() {
+    try {
+      const res = await fetch('games.json');
+      games = await res.json();
+    } catch {
+      games = [];
+    }
+    renderGames();
+  }
+
+  // 渲染游戏列表
+  function renderGames() {
+    const list = document.getElementById('games-list');
+    if (!games.length) {
+      list.innerHTML = '<div class="text-gray-500">暂无游戏</div>';
+      return;
+    }
+    list.innerHTML = games.map(g => `
+      <div class="flex items-center bg-white rounded shadow p-3 gap-4">
+        <img src="${g.cover || ''}" alt="cover" class="w-16 h-16 object-cover rounded border" onerror="this.style.display='none'">
+        <div class="flex-1">
+          <div class="font-bold text-gray-800">${g.title}</div>
+          <div class="text-xs text-gray-500 truncate">${g.iframe}</div>
+        </div>
+        <button onclick="editGame(${g.id})" class="text-blue-600 hover:underline text-sm">编辑</button>
+        <button onclick="deleteGame(${g.id})" class="text-red-500 hover:underline text-sm">删除</button>
+      </div>
+    `).join('');
+  }
+
+  // 编辑游戏
+  window.editGame = function(id) {
+    const g = games.find(x => x.id === id);
+    if (!g) return;
+    editingId = id;
+    document.getElementById('game-id').value = g.id;
+    document.getElementById('game-title').value = g.title;
+    document.getElementById('game-iframe').value = g.iframe;
+    document.getElementById('game-cover').value = g.cover || '';
+    document.getElementById('game-desc').value = g.desc || '';
+  }
+
+  // 删除游戏
+  window.deleteGame = function(id) {
+    if (!confirm('确定要删除这个游戏吗？')) return;
+    games = games.filter(g => g.id !== id);
+    renderGames();
+    resetForm();
+  }
+
+  // 重置表单
+  function resetForm() {
+    editingId = null;
+    document.getElementById('game-id').value = '';
+    document.getElementById('game-title').value = '';
+    document.getElementById('game-iframe').value = '';
+    document.getElementById('game-cover').value = '';
+    document.getElementById('game-desc').value = '';
+  }
+  document.getElementById('reset-btn').onclick = resetForm;
+
+  // 保存游戏
+  document.getElementById('game-form').onsubmit = function(e) {
+    e.preventDefault();
+    const id = editingId || (games.length ? Math.max(...games.map(g => g.id)) + 1 : 1);
+    const game = {
+      id,
+      title: document.getElementById('game-title').value.trim(),
+      iframe: document.getElementById('game-iframe').value.trim(),
+      cover: document.getElementById('game-cover').value.trim(),
+      desc: document.getElementById('game-desc').value.trim(),
+    };
+    if (editingId) {
+      const idx = games.findIndex(g => g.id === editingId);
+      games[idx] = game;
+    } else {
+      games.push(game);
+    }
+    renderGames();
+    resetForm();
+  };
+
+  // 导出JSON
+  document.getElementById('export-btn').onclick = function() {
+    const data = JSON.stringify(games, null, 2);
+    const blob = new Blob([data], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'games.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  loadGames();
+  </script>
+</body>
+</html> 

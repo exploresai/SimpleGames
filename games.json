@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "title": "Monster Survivors",
+    "iframe": "https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html",
+    "cover": "https://img.onlinegames.io/2025/unity/monster-survivors.jpg",
+    "desc": "Survive endless waves of monsters in this thrilling action game!",
+    "category": "action"
+  },
+  {
+    "id": 2,
+    "title": "Mini Cars",
+    "iframe": "https://cloud.onlinegames.io/games/2025/unity/mini-cars/index.html",
+    "cover": "https://img.onlinegames.io/2025/unity/mini-cars.jpg",
+    "desc": "Race your mini car to victory!",
+    "category": "racing"
+  },
+  {
+    "id": 3,
+    "title": "2048",
+    "iframe": "https://play2048.co/",
+    "cover": "https://play-lh.googleusercontent.com/1Qn2lKQzA4QwQn6l6QwQn6l6QwQn6l6QwQn6l6QwQn6l6QwQn6l6QwQn6l6QwQ=w600-h300-pc0xffffff-pd",
+    "desc": "Join the numbers and get to the 2048 tile!",
+    "category": "puzzle"
+  },
+  {
+    "id": 4,
+    "title": "Sudoku",
+    "iframe": "https://sudoku.com/",
+    "cover": "https://sudoku.com/static/7.16.0/images/ogimage.png",
+    "desc": "Play classic Sudoku online for free.",
+    "category": "puzzle"
+  },
+  {
+    "id": 5,
+    "title": "Gorogoa",
+    "iframe": "https://poki.com/en/g/gorogoa",
+    "cover": "https://images.poki.com/games/gorogoa/cover-1589969640.png",
+    "desc": "A beautiful puzzle game with a unique visual style.",
+    "category": "puzzle"
+  }
+] 
