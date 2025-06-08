@@ -44,29 +44,30 @@
         </div>
     </nav>
 
-    <div class="flex">
-        <!-- Sidebar -->
-        <aside id="sidebar" class="bg-white/90 dark:bg-gray-800/90 shadow-md w-48 min-h-screen p-4">
-            <ul id="category-list" class="space-y-2">
-                <li class="flex justify-center">
-                    <button id="sidebar-collapse" class="mb-2 text-white text-xl rounded-full w-7 h-7 flex items-center justify-center shadow bg-gray-700 hover:bg-indigo-600 transition-transform duration-200 mx-auto" title="Collapse sidebar">
-                        <svg id="sidebar-chevron" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-                    </button>
-                </li>
-                <!-- Categories will be populated by JS -->
-            </ul>
-        </aside>
+    <!-- Sidebar -->
+    <aside id="sidebar" class="fixed top-0 left-0 z-40 w-40 h-screen pt-20 bg-white/90 dark:bg-gray-800/90 shadow-md transition-transform -translate-x-full md:translate-x-0" aria-label="Sidebar">
+        <ul id="category-list" class="space-y-2">
+            <li class="flex justify-center">
+                <button id="sidebar-collapse" class="mb-2 text-white text-xl rounded-full w-7 h-7 flex items-center justify-center shadow bg-gray-700 hover:bg-indigo-600 transition-transform duration-200 mx-auto" title="Collapse sidebar">
+                    <svg id="sidebar-chevron" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+            </li>
+            <!-- Categories will be populated by JS -->
+        </ul>
+    </aside>
 
-        <!-- Main Content -->
-        <main id="main-content" class="flex-1 p-6">
-            <section class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">New games</h1>
-                <div id="games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                    <!-- Game cards will be populated by JS -->
-                </div>
-            </section>
-        </main>
-    </div>
+    <!-- Main Content -->
+    <main id="main-content" class="p-6 md:ml-40 transition-all duration-300">
+        <section class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">New games</h1>
+            <div id="games-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+                <!-- Game cards will be populated by JS -->
+            </div>
+        </section>
+    </main>
+    
+    <!-- Backdrop for mobile sidebar -->
+    <div id="sidebar-backdrop" class="bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-30 hidden md:hidden"></div>
 
     <style>
         .sidebar-collapsed { width: 56px !important; }
@@ -111,6 +112,7 @@
     const html = document.documentElement;
     const searchInput = document.getElementById('search');
     const gamesGrid = document.getElementById('games-grid');
+    const sidebarBackdrop = document.getElementById('sidebar-backdrop');
 
     // --- STATE ---
     let allGames = [];
@@ -131,9 +133,11 @@
     // Functions to handle sidebar visibility on mobile
     function closeSidebar() {
         sidebar.classList.add('-translate-x-full');
+        sidebarBackdrop.classList.add('hidden');
     }
     function openSidebar() {
         sidebar.classList.remove('-translate-x-full');
+        sidebarBackdrop.classList.remove('hidden');
     }
 
     // Function to render game cards based on filters
@@ -171,8 +175,15 @@
     // Function to load game data from JSON
     async function loadGames() {
         try {
-            // In a real scenario, you would fetch from an API
-            // For this demo, we create mock data.
+            const response = await fetch('games.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            allGames = await response.json();
+            renderGames();
+        } catch (error) {
+            console.error("Failed to load games.json:", error);
+            // Fallback to mock data if games.json fails to load
             allGames = [
                 { id: 1, title: 'Speed Racer', category: 'racing', cover: 'https://placehold.co/400x300/f87171/ffffff?text=Racing+Game', badge: 'New'},
                 { id: 2, title: 'Dungeon Crawler', category: 'action', cover: 'https://placehold.co/400x300/fb923c/ffffff?text=Action+Game'},
@@ -184,9 +195,7 @@
                 { id: 8, title: 'Sudoku Zen', category: 'puzzle', cover: 'https://placehold.co/400x300/60a5fa/ffffff?text=Puzzle+Game+2'},
             ];
             renderGames();
-        } catch (error) {
-            console.error("Failed to load games:", error);
-            gamesGrid.innerHTML = '<div class="col-span-full text-red-500 text-center py-12">Failed to load games.</div>';
+            gamesGrid.innerHTML = '<div class="col-span-full text-red-500 text-center py-12">Failed to load games.json. Displaying mock data.</div>' + gamesGrid.innerHTML;
         }
     }
 
@@ -235,7 +244,7 @@
         if (sidebar.classList.contains('sidebar-collapsed')) {
             mainContent.style.marginLeft = '56px';
         } else {
-            mainContent.style.marginLeft = '192px'; // w-48 is 192px
+            mainContent.style.marginLeft = '160px'; // w-40 is 160px
         }
     });
 
@@ -270,6 +279,8 @@
             main-navbar.classList.remove('bg-white/80', 'dark:bg-gray-900/80', 'backdrop-blur-lg');
         }
     });
+
+    sidebarBackdrop.addEventListener('click', closeSidebar);
     </script>
 </body>
 </html>
