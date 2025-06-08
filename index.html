@@ -13,7 +13,7 @@
     <nav class="bg-gray-800 text-white px-4 py-3 flex items-center justify-between sticky top-0 z-20 shadow">
         <div class="flex items-center gap-3">
             <button id="sidebar-toggle" class="md:hidden text-2xl focus:outline-none mr-2">☰</button>
-            <span class="text-2xl font-bold tracking-wide">🎮 Simplegames</span>
+            <span class="text-2xl font-bold tracking-wide">🎮 Simple Games</span>
         </div>
         <div class="flex-1 max-w-lg mx-4">
             <input type="text" id="search" placeholder="Search games..." class="w-full rounded bg-gray-700 text-white px-4 py-2 focus:outline-none" />
@@ -22,29 +22,43 @@
 
     <div class="flex">
         <!-- Sidebar -->
-        <aside id="sidebar" class="bg-gray-800 text-gray-200 w-56 min-h-screen pt-6 px-4 fixed md:static z-30 transition-transform duration-300 -translate-x-full md:translate-x-0">
-            <div class="mb-6">
-                <div class="text-lg font-bold mb-4">Categories</div>
-                <ul id="category-list" class="space-y-2">
-                    <!-- 分类列表JS填充 -->
-                </ul>
+        <aside id="sidebar" class="bg-gray-800 text-gray-200 min-h-screen pt-2 px-2 fixed md:static z-30 transition-all duration-300 -translate-x-full md:translate-x-0" style="width:180px;">
+            <div class="flex items-center justify-between mb-4">
+                <div class="text-lg font-bold">Categories</div>
+                <button id="sidebar-collapse" class="text-gray-400 hover:text-white text-xl ml-2" title="Collapse sidebar">«</button>
             </div>
+            <ul id="category-list" class="space-y-2">
+                <!-- 分类列表JS填充 -->
+            </ul>
         </aside>
 
         <!-- Main Content -->
-        <main id="main-content" class="flex-1 ml-0 md:ml-56 p-4 md:p-8 transition-all duration-300">
-            <h1 class="text-3xl font-bold text-white mb-6">New games</h1>
+        <main id="main-content" class="flex-1 ml-0 md:ml-56 p-2 md:p-4 transition-all duration-300">
+            <h1 class="text-3xl font-bold text-white mb-4">New games</h1>
             <div id="games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <!-- 游戏卡片JS填充 -->
             </div>
         </main>
     </div>
 
+    <style>
+        .sidebar-collapsed { width: 56px !important; }
+        .sidebar-collapsed #category-list button span:not(:first-child),
+        .sidebar-collapsed #category-list button .cat-label,
+        .sidebar-collapsed .text-lg { display: none !important; }
+        .sidebar-collapsed #category-list button { justify-content: center; }
+        .sidebar-collapsed #sidebar-collapse { transform: rotate(180deg); }
+        .sidebar-collapsed #category-list button { padding-left: 0.5rem; padding-right: 0.5rem; }
+        @media (min-width: 768px) {
+            .sidebar-collapsed + #main-content { margin-left: 56px !important; }
+        }
+    </style>
+
     <script>
     // 分类列表
     const categories = [
         { key: 'all', label: 'All', emoji: '🎮' },
-        { key: 'racing', label: 'Racing', emoji: '🚗' },
+        { key: 'racing', label: 'Racing', emoji: '🏍' },
         { key: 'action', label: 'Action', emoji: '⚔️' },
         { key: 'puzzle', label: 'Puzzle', emoji: '🧩' },
         { key: 'arcade', label: 'Arcade', emoji: '🕹️' },
@@ -57,7 +71,7 @@
     const categoryList = document.getElementById('category-list');
     categories.forEach(cat => {
         const li = document.createElement('li');
-        li.innerHTML = `<button class="w-full text-left px-2 py-1 rounded hover:bg-gray-700 flex items-center gap-2" data-cat="${cat.key}"><span>${cat.emoji}</span> ${cat.label}</button>`;
+        li.innerHTML = `<button class="w-full text-left px-2 py-1 rounded hover:bg-gray-700 flex items-center gap-2" data-cat="${cat.key}"><span>${cat.emoji}</span> <span class="cat-label">${cat.label}</span></button>`;
         categoryList.appendChild(li);
     });
 
@@ -112,7 +126,7 @@
         }
         grid.innerHTML = games.map(g => `
             <div class="relative bg-gray-800 rounded-lg shadow hover:shadow-lg transition p-2 flex flex-col cursor-pointer group">
-                <img src="${g.cover || ''}" alt="${g.title}" class="rounded mb-2 w-full h-28 object-cover bg-gray-700 group-hover:opacity-80 transition" onerror="this.onerror=null;this.src='https://via.placeholder.com/240x100?text=No+Image';">
+                <img src="${g.cover || ''}" alt="${g.title}" class="rounded mb-2 w-full h-36 object-cover bg-gray-700 group-hover:opacity-80 transition" onerror="this.onerror=null;this.src='https://via.placeholder.com/240x100?text=No+Image';">
                 <div class="font-semibold text-white text-sm truncate mb-1">${g.title}</div>
                 <div class="absolute top-2 left-2">
                     ${g.badge ? `<span class="bg-pink-500 text-xs text-white px-2 py-0.5 rounded-full font-bold">${g.badge}</span>` : ''}
@@ -145,6 +159,47 @@
     loadGames();
     // 页面加载后默认显示全部游戏
     currentCategory = 'all';
+
+    // 侧边栏收起/展开
+    const sidebarCollapse = document.getElementById('sidebar-collapse');
+    function getSidebarExpandedWidth() {
+        // 计算最长栏目emoji+文字宽度+5px
+        const temp = document.createElement('div');
+        temp.style.position = 'absolute';
+        temp.style.visibility = 'hidden';
+        temp.style.fontSize = '1rem';
+        temp.style.fontWeight = 'bold';
+        temp.style.fontFamily = 'inherit';
+        let max = 0;
+        categories.forEach(cat => {
+            temp.innerHTML = `<span>${cat.emoji}</span> <span>${cat.label}</span>`;
+            document.body.appendChild(temp);
+            max = Math.max(max, temp.offsetWidth);
+            document.body.removeChild(temp);
+        });
+        return max + 5;
+    }
+    function setSidebarWidth(collapsed) {
+        const sidebar = document.getElementById('sidebar');
+        if (collapsed) {
+            sidebar.style.width = '56px';
+        } else {
+            sidebar.style.width = getSidebarExpandedWidth() + 'px';
+        }
+    }
+    sidebarCollapse.addEventListener('click', () => {
+        sidebar.classList.toggle('sidebar-collapsed');
+        setSidebarWidth(sidebar.classList.contains('sidebar-collapsed'));
+        if (sidebar.classList.contains('sidebar-collapsed')) {
+            mainContent.classList.add('ml-14');
+            mainContent.classList.remove('md:ml-56');
+        } else {
+            mainContent.classList.remove('ml-14');
+            mainContent.classList.add('md:ml-56');
+        }
+    });
+    // 初始化展开宽度
+    setSidebarWidth(false);
     </script>
 </body>
 </html>
