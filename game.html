@@ -4,11 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game | Simple Games</title>
+    <meta name="description" content="Play free simple games online. Enjoy action, puzzle, arcade, and more games instantly!">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+
+    <!-- 1. Pre-theme script to prevent FOUC (Flash of Unstyled Content) -->
+    <script>
+        const theme = localStorage.getItem('theme');
+        if (
+            theme === 'dark' ||
+            (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <!-- 2. Load Tailwind CSS Library FIRST -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 3. Configure Tailwind CSS AFTER loading it -->
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
 </head>
-<body class="bg-gray-900 min-h-screen flex flex-col">
-    <!-- Header -->
-    <nav id="main-navbar" class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900/90 text-white px-6 py-3 flex items-center justify-between sticky top-0 z-50 shadow-lg transition-all duration-300">
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+    <!-- Top Navbar -->
+    <nav id="main-navbar" class="bg-gradient-to-r from-white via-gray-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900/90 shadow text-gray-900 dark:text-white px-6 py-3 flex items-center justify-between sticky top-0 z-50 transition-all duration-300">
         <div class="flex items-center gap-3">
             <a href="index.html" class="flex items-center gap-2">
                 <span class="inline-block w-8 h-8 mr-2"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a2 2 0 012-2h2a2 2 0 012 2v2m-6 0a2 2 0 01-2-2v-2a2 2 0 012-2h2a2 2 0 012 2v2m-6 0V7a2 2 0 012-2h2a2 2 0 012 2v2m6 0V7a2 2 0 00-2-2h-2a2 2 0 00-2 2v2"/></svg></span>
@@ -16,114 +36,219 @@
             </a>
             <button id="sidebar-toggle" class="md:hidden text-2xl focus:outline-none mr-2">☰</button>
         </div>
-        <div class="flex-1 max-w-lg mx-4">
-            <input type="text" id="search" placeholder="Search games..." class="w-full rounded-xl bg-gray-700 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner placeholder-gray-400 transition" />
+        <div class="flex-1 max-w-lg mx-4 flex items-center gap-2">
+            <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full bg-indigo-100 dark:bg-gray-700 text-indigo-500 dark:text-gray-200 shadow hover:bg-indigo-200 dark:hover:bg-gray-600 transition" title="Toggle theme">
+                <span id="theme-icon"></span>
+            </button>
+            <input type="text" id="search" placeholder="Search games..." class="w-full rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner placeholder-gray-400 transition" />
         </div>
     </nav>
 
-    <div class="flex flex-1 w-full max-w-[1600px] mx-auto mt-4">
+    <div class="flex w-full max-w-[1600px] mx-auto">
         <!-- Sidebar -->
-        <aside id="sidebar" class="bg-gray-800 text-gray-200 fixed top-0 left-0 h-screen pt-20 px-2 z-30 transition-all duration-300 shadow-lg -translate-x-full md:translate-x-0" style="width:180px;">
+        <aside id="sidebar" class="bg-white/90 dark:bg-gray-800/90 shadow-md w-48 min-h-screen p-4 flex-shrink-0">
             <ul id="category-list" class="space-y-2">
                 <li class="flex justify-center">
-                    <button id="sidebar-collapse" class="mb-2 text-white text-xl rounded-full w-7 h-7 flex items-center justify-center shadow bg-gray-700 hover:bg-indigo-600 transition-transform duration-200 mx-auto" title="Collapse sidebar">
+                    <button id="sidebar-collapse" class="mb-2 text-gray-600 dark:text-gray-300 text-xl rounded-full w-7 h-7 flex items-center justify-center shadow bg-gray-200 dark:bg-gray-700 hover:bg-indigo-200 dark:hover:bg-indigo-600 transition-transform duration-200 mx-auto" title="Collapse sidebar">
                         <svg id="sidebar-chevron" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
                     </button>
                 </li>
-                <!-- 分类列表JS填充 -->
+                <!-- Categories will be populated by JS -->
             </ul>
         </aside>
 
-        <!-- Main Game Area -->
-        <main id="main-content" class="flex-1 ml-0 md:ml-[180px] px-2 md:px-8 transition-all duration-300">
-            <div class="w-full max-w-4xl aspect-video bg-black rounded-xl shadow-2xl overflow-hidden border-2 border-gray-700 relative mx-auto">
-                <iframe id="game-iframe" src="" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen=""></iframe>
-            </div>
-            <div class="w-full max-w-4xl mt-4 bg-gray-800 rounded-xl p-6 text-white shadow-xl mx-auto border border-gray-700">
-                <h1 id="game-title" class="text-2xl font-bold mb-2"></h1>
-                <div id="game-desc" class="mb-2 text-gray-300"></div>
-                <div id="game-howto" class="mb-2 text-gray-400"></div>
-                <div id="game-controls" class="mb-2">
-                    <span class="font-semibold text-gray-200">Controls:</span>
-                    <ul class="list-disc list-inside text-gray-400 text-sm" id="controls-list">
-                        <li>Arrow Keys</li>
-                        <li>Spacebar</li>
-                    </ul>
+        <!-- Main Content Area -->
+        <main id="main-content" class="flex-1 p-6 transition-all duration-300">
+            <div class="w-full max-w-5xl mx-auto">
+                <div class="w-full aspect-video bg-black rounded-xl shadow-2xl overflow-hidden border-2 border-gray-200 dark:border-gray-700 relative">
+                    <iframe id="game-iframe" src="" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen></iframe>
                 </div>
-                <button id="restart-btn" class="mt-2 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-semibold shadow">Restart Game</button>
+                <div class="w-full mt-4 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700">
+                    <h1 id="game-title" class="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100"></h1>
+                    <div id="game-desc" class="mb-4 text-gray-600 dark:text-gray-300"></div>
+                    <div id="game-howto" class="mb-4 text-gray-600 dark:text-gray-300"></div>
+                    <div id="game-controls" class="mb-4">
+                        <span class="font-semibold text-gray-800 dark:text-gray-200">Controls:</span>
+                        <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 text-sm mt-1" id="controls-list">
+                        </ul>
+                    </div>
+                    <button id="restart-btn" class="mt-2 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-semibold shadow transition-colors">Restart Game</button>
+                </div>
             </div>
         </main>
-        <!-- Right Sidebar: Ad + Recommendations -->
-        <aside class="hidden lg:flex flex-col w-64 ml-6 gap-4">
-            <!-- Ad Slot -->
-            <div class="bg-gray-800 rounded-xl h-32 flex items-center justify-center text-gray-400 text-lg mb-2 shadow-lg border border-gray-700">Ad Space</div>
-            <!-- Recommendations -->
-            <div class="bg-gray-800 rounded-xl p-2 flex-1 shadow-lg border border-gray-700">
-                <div class="text-white font-bold mb-2 text-lg">Recommended</div>
+
+        <!-- Right Sidebar: Recommendations -->
+        <aside class="hidden lg:block w-64 p-6 flex-shrink-0">
+            <div class="bg-white dark:bg-gray-800 rounded-xl h-32 flex items-center justify-center text-gray-400 dark:text-gray-500 text-lg mb-6 shadow-lg border border-gray-200 dark:border-gray-700">Ad Space</div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-700">
+                <h2 class="text-gray-900 dark:text-gray-100 font-bold mb-3 text-lg">Recommended</h2>
                 <div id="recommend-list" class="flex flex-col gap-3">
-                    <!-- 推荐游戏卡片 -->
+                    <!-- Recommendation cards will be populated by JS -->
                 </div>
             </div>
         </aside>
     </div>
 
     <style>
-        /* 滚动条美化 */
-        ::-webkit-scrollbar { width: 8px; background: #23272f; }
-        ::-webkit-scrollbar-thumb { background: #444; border-radius: 8px; }
-        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
         .sidebar-collapsed { width: 56px !important; }
-        .sidebar-collapsed #sidebar-chevron { transform: rotate(180deg); }
         .sidebar-collapsed #category-list button span:not(:first-child),
         .sidebar-collapsed #category-list button .cat-label,
         .sidebar-collapsed .text-lg { display: none !important; }
         .sidebar-collapsed #category-list button { justify-content: center; }
+        .sidebar-collapsed #sidebar-chevron { transform: rotate(180deg); }
         .sidebar-collapsed #category-list button { padding-left: 0.5rem; padding-right: 0.5rem; }
         .sidebar-collapsed ~ #main-content { margin-left: 56px !important; }
         @media (min-width: 768px) {
             .sidebar-collapsed ~ #main-content { margin-left: 56px !important; }
         }
+        body, html { transition: background 0.3s, color 0.3s; }
+        /* Optional: Scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; background: #f1f5f9; }
+        .dark ::-webkit-scrollbar { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+        .dark ::-webkit-scrollbar-thumb { background: #4b5563; }
+        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
     </style>
 
-    <footer class="border-t pt-6 pb-4 text-center text-gray-500 text-sm bg-gray-800 mt-8">
+    <footer class="border-t border-gray-200 dark:border-gray-700 pt-6 pb-4 text-center text-gray-500 dark:text-gray-400 text-sm bg-white dark:bg-gray-800 mt-8">
         <div class="flex justify-center gap-8 mb-2">
-            <a href="#about" class="hover:text-indigo-400">About</a>
-            <a href="#privacy" class="hover:text-indigo-400">Privacy Policy</a>
+            <a href="#about" class="hover:text-indigo-500 dark:hover:text-indigo-400">About</a>
+            <a href="#privacy" class="hover:text-indigo-500 dark:hover:text-indigo-400">Privacy Policy</a>
         </div>
         &copy; 2025 simplegames.info - Your source for the best simple online games.
     </footer>
 
     <script>
-    // 分类列表
+    // --- STATIC DATA AND SETUP ---
     const categories = [
-        { key: 'all', label: 'All', emoji: '🎮' },
-        { key: 'racing', label: 'Racing', emoji: '🏍' },
-        { key: 'action', label: 'Action', emoji: '⚔️' },
-        { key: 'puzzle', label: 'Puzzle', emoji: '🧩' },
-        { key: 'arcade', label: 'Arcade', emoji: '🕹️' },
-        { key: 'girls', label: 'Girls', emoji: '👧' },
+        { key: 'all', label: 'All', emoji: '🎮' }, { key: 'racing', label: 'Racing', emoji: '🏍' },
+        { key: 'action', label: 'Action', emoji: '⚔️' }, { key: 'puzzle', label: 'Puzzle', emoji: '🧩' },
+        { key: 'arcade', label: 'Arcade', emoji: '🕹️' }, { key: 'girls', label: 'Girls', emoji: '👧' },
         { key: 'simulation', label: 'Simulation', emoji: '🛠️' },
-        // 可继续添加
     ];
-    // 填充分类侧边栏
+    // Mock game data to make the page runnable without a real backend
+    const allGames = [
+        { id: 1, title: 'Speed Racer', category: 'racing', cover: 'https://placehold.co/400x300/f87171/ffffff?text=Racing+Game', badge: 'New', iframe: 'about:blank', desc: 'A thrilling high-speed racing game.', howto: 'Use arrow keys to steer, space to boost.', controls: ['Arrow Keys', 'Spacebar']},
+        { id: 2, title: 'Dungeon Crawler', category: 'action', cover: 'https://placehold.co/400x300/fb923c/ffffff?text=Action+Game', iframe: 'about:blank', desc: 'Explore dark dungeons and fight monsters.', howto: 'Use WASD to move, click to attack.', controls: ['WASD', 'Mouse Click']},
+        { id: 3, title: 'Mind Bender', category: 'puzzle', cover: 'https://placehold.co/400x300/fbbf24/ffffff?text=Puzzle+Game', iframe: 'about:blank', desc: 'Solve intricate puzzles to test your logic.', howto: 'Click and drag pieces to solve.', controls: ['Mouse Click & Drag']},
+        { id: 4, title: 'Pixel Invaders', category: 'arcade', cover: 'https://placehold.co/400x300/a3e635/ffffff?text=Arcade+Game', iframe: 'about:blank', desc: 'A retro arcade shooter.', howto: 'Move with arrow keys, shoot with spacebar.', controls: ['Arrow Keys', 'Spacebar']},
+    ];
+
+    // --- DOM ELEMENTS ---
     const categoryList = document.getElementById('category-list');
-    categories.forEach((cat, idx) => {
-        const li = document.createElement('li');
-        li.innerHTML = `<button class="w-full text-left px-2 py-1 rounded flex items-center gap-2 transition-all duration-150 text-sm hover:text-gray-400 hover:translate-y-0.5 hover:scale-95 focus:outline-none" data-cat="${cat.key}"><span>${cat.emoji}</span> <span class="cat-label">${cat.label}</span></button>`;
-        categoryList.appendChild(li);
-    });
-    // 侧边栏隐藏/显示
     const sidebar = document.getElementById('sidebar');
     const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebarCollapse = document.getElementById('sidebar-collapse');
     const mainContent = document.getElementById('main-content');
-    function closeSidebar() {
-        sidebar.classList.add('-translate-x-full');
-        mainContent.classList.remove('sidebar-open');
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    const searchInput = document.getElementById('search');
+    const recommendList = document.getElementById('recommend-list');
+    const gameTitle = document.getElementById('game-title');
+    const gameIframe = document.getElementById('game-iframe');
+    const gameDesc = document.getElementById('game-desc');
+    const gameHowto = document.getElementById('game-howto');
+    const controlsList = document.getElementById('controls-list');
+    const restartBtn = document.getElementById('restart-btn');
+    const mainNavbar = document.getElementById('main-navbar');
+
+    // --- STATE ---
+    let currentGameId = null;
+
+    // --- FUNCTIONS ---
+    function populateCategories() {
+        categories.forEach((cat) => {
+            const li = document.createElement('li');
+            li.innerHTML = `<button class="w-full text-left px-2 py-1 rounded flex items-center gap-2 transition-all duration-150 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none" data-cat="${cat.key}"><span>${cat.emoji}</span> <span class="cat-label">${cat.label}</span></button>`;
+            categoryList.appendChild(li);
+        });
     }
-    function openSidebar() {
-        sidebar.classList.remove('-translate-x-full');
-        mainContent.classList.add('sidebar-open');
+
+    function closeSidebar() { sidebar.classList.add('-translate-x-full'); }
+    function openSidebar() { sidebar.classList.remove('-translate-x-full'); }
+
+    function renderRecommendations(games, currentId) {
+        let others = games.filter(g => String(g.id) !== String(currentId));
+        const shuffled = others.sort(() => 0.5 - Math.random());
+        const picks = shuffled.slice(0, 5); // Show 5 recommendations
+
+        recommendList.innerHTML = picks.map(g => `
+            <a href="?id=${g.id}" class="relative group block rounded-lg overflow-hidden bg-white dark:bg-gray-700 hover:scale-105 transition-transform duration-200 shadow">
+                <img src="${g.cover || ''}" alt="${g.title}" class="w-full h-20 object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/240x80/e2e8f0/475569?text=No+Image';">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-1 left-2 text-white text-xs font-semibold">
+                    ${g.title}
+                </div>
+            </a>
+        `).join('');
     }
+
+    function loadGame() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        currentGameId = id;
+        
+        if (!id) {
+            gameTitle.textContent = "Game not found";
+            gameDesc.textContent = "Please select a game from the homepage.";
+            return;
+        };
+
+        const game = allGames.find(g => String(g.id) === String(id));
+        if (!game) {
+             gameTitle.textContent = "Game not found";
+             return;
+        };
+
+        document.title = game.title + ' | Simple Games';
+        gameTitle.textContent = game.title;
+        gameIframe.src = game.iframe;
+        gameDesc.textContent = game.desc || '';
+        
+        if (game.howto) {
+            gameHowto.innerHTML = `<span class="font-semibold text-gray-800 dark:text-gray-200">How to Play:</span> ${game.howto}`;
+        } else {
+            gameHowto.innerHTML = '';
+        }
+
+        if (game.controls && Array.isArray(game.controls)) {
+            controlsList.innerHTML = game.controls.map(c => `<li>${c}</li>`).join('');
+            controlsList.parentElement.style.display = 'block';
+        } else {
+            controlsList.parentElement.style.display = 'none';
+        }
+
+        restartBtn.onclick = function() {
+            gameIframe.src = gameIframe.src;
+        };
+        renderRecommendations(allGames, game.id);
+    }
+
+    function setTheme(mode) {
+        if (mode === 'dark') {
+            html.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            document.getElementById('theme-icon').textContent = '🌙';
+        } else {
+            html.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            document.getElementById('theme-icon').textContent = '🌞';
+        }
+    }
+
+    // --- EVENT LISTENERS ---
+    document.addEventListener('DOMContentLoaded', () => {
+        populateCategories();
+        loadGame();
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+    });
+
     sidebarToggle.addEventListener('click', () => {
         if (sidebar.classList.contains('-translate-x-full')) {
             openSidebar();
@@ -131,129 +256,38 @@
             closeSidebar();
         }
     });
-    // 动态设置侧边栏宽度
-    function getSidebarExpandedWidth() {
-        const temp = document.createElement('div');
-        temp.style.position = 'absolute';
-        temp.style.visibility = 'hidden';
-        temp.style.fontSize = '0.875rem'; // text-sm
-        temp.style.fontWeight = 'normal';
-        temp.style.fontFamily = 'inherit';
-        let max = 0;
-        categories.forEach(cat => {
-            temp.innerHTML = `<span>${cat.emoji}</span> <span>${cat.label}</span>`;
-            document.body.appendChild(temp);
-            max = Math.max(max, temp.offsetWidth);
-            document.body.removeChild(temp);
-        });
-        return max + 36; // 36px padding/space
-    }
-    function setSidebarWidth(collapsed) {
-        if (collapsed) {
-            sidebar.style.width = '56px';
-        } else {
-            sidebar.style.width = getSidebarExpandedWidth() + 'px';
-        }
-    }
-    // 初始化展开宽度
-    setSidebarWidth(false);
-    // 修改折叠按钮事件
-    const sidebarCollapse = document.getElementById('sidebar-collapse');
+
     sidebarCollapse.addEventListener('click', () => {
-        sidebar.classList.toggle('sidebar-collapsed');
-        setSidebarWidth(sidebar.classList.contains('sidebar-collapsed'));
-        if (sidebar.classList.contains('sidebar-collapsed')) {
-            mainContent.style.marginLeft = '56px';
-        } else {
-            mainContent.style.marginLeft = sidebar.style.width;
+        alert("This feature is for the main page layout.");
+    });
+    
+    // Redirect to homepage with category filter
+    categoryList.addEventListener('click', (e) => {
+        const button = e.target.closest('button');
+        if (button) {
+            const category = button.getAttribute('data-cat');
+            window.location.href = `index.html?category=${category}`;
         }
     });
-    // 点击侧边栏分类自动收起（移动端）
-    categoryList.addEventListener('click', e => {
-        if (e.target.tagName === 'BUTTON' && window.innerWidth < 768) {
-            closeSidebar();
+    
+    // Search redirects to homepage with search query
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            window.location.href = `index.html?search=${searchInput.value}`;
         }
-    });
-    // 点击主内容区收起侧边栏（移动端体验优化）
-    mainContent.addEventListener('click', () => {
-        if (window.innerWidth < 768) closeSidebar();
-    });
-
-    // 搜索功能仅用于推荐栏筛选
-    let allGames = [];
-    let searchTerm = '';
-    document.getElementById('search').addEventListener('input', e => {
-        searchTerm = e.target.value;
-        renderRecommendations(allGames, currentGameId, searchTerm);
     });
 
-    // 获取URL参数
-    function getQueryParam(name) {
-        const url = new URL(window.location.href);
-        return url.searchParams.get(name);
-    }
-    let currentGameId = null;
-    // 加载游戏数据
-    async function loadGame() {
-        const id = getQueryParam('id');
-        currentGameId = id;
-        if (!id) return;
-        const res = await fetch('games.json');
-        allGames = await res.json();
-        const game = allGames.find(g => String(g.id) === String(id));
-        if (!game) return;
-        document.title = game.title + ' | Simple Games';
-        document.getElementById('game-title').textContent = game.title;
-        document.getElementById('game-iframe').src = game.iframe;
-        document.getElementById('game-desc').textContent = game.desc || '';
-        // 玩法说明
-        if (game.howto) {
-            document.getElementById('game-howto').innerHTML = '<span class="font-semibold text-gray-200">How to Play:</span> <span>' + game.howto + '</span>';
-        }
-        // 操作说明
-        if (game.controls && Array.isArray(game.controls)) {
-            document.getElementById('controls-list').innerHTML = game.controls.map(c => `<li>${c}</li>`).join('');
-        }
-        // Restart 按钮
-        document.getElementById('restart-btn').onclick = function() {
-            const iframe = document.getElementById('game-iframe');
-            iframe.src = iframe.src;
-        };
-        // 推荐游戏
-        renderRecommendations(allGames, game.id, searchTerm);
-    }
-    // 推荐游戏栏，随机抽取8个不同于当前游戏的，支持搜索
-    function renderRecommendations(games, currentId, searchTerm = '') {
-        const recommendList = document.getElementById('recommend-list');
-        let others = games.filter(g => String(g.id) !== String(currentId));
-        if (searchTerm) {
-            others = others.filter(g => g.title.toLowerCase().includes(searchTerm.toLowerCase()));
-        }
-        // 随机抽取8个
-        const shuffled = others.sort(() => 0.5 - Math.random());
-        const picks = shuffled.slice(0, 8);
-        recommendList.innerHTML = picks.map(g => `
-            <a href="game.html?id=${g.id}" class="relative group block rounded-xl overflow-hidden bg-gray-700 hover:bg-indigo-700 transition shadow border border-gray-600">
-                <img src="${g.cover || ''}" alt="${g.title}" class="w-full h-16 object-cover group-hover:opacity-80 transition rounded-xl" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/240x64?text=No+Image';">
-                <div class="absolute left-2 bottom-2 text-white text-xs font-semibold bg-black/60 px-2 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none">
-                    ${g.title}
-                </div>
-            </a>
-        `).join('');
-    }
-    loadGame();
+    themeToggle.addEventListener('click', () => {
+        setTheme(html.classList.contains('dark') ? 'light' : 'dark');
+    });
 
-    // 顶部导航栏滚动时半透明+模糊加强
     window.addEventListener('scroll', function() {
-        const nav = document.getElementById('main-navbar');
         if (window.scrollY > 10) {
-            nav.classList.add('bg-opacity-40', 'backdrop-blur-lg', 'border-b', 'border-gray-700/40');
-            nav.classList.remove('bg-opacity-70', 'backdrop-blur-md');
+            mainNavbar.classList.add('bg-white/80', 'dark:bg-gray-900/80', 'backdrop-blur-lg');
         } else {
-            nav.classList.remove('bg-opacity-40', 'backdrop-blur-lg', 'border-b', 'border-gray-700/40');
-            nav.classList.add('bg-opacity-70', 'backdrop-blur-md');
+            mainNavbar.classList.remove('bg-white/80', 'dark:bg-gray-900/80', 'backdrop-blur-lg');
         }
     });
     </script>
 </body>
-</html> 
+</html>
