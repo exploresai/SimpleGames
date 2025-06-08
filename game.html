@@ -243,13 +243,15 @@
     }
     loadGame();
 
-    // 顶部导航栏滚动时半透明+模糊
+    // 顶部导航栏滚动时半透明+模糊加强
     window.addEventListener('scroll', function() {
         const nav = document.getElementById('main-navbar');
         if (window.scrollY > 10) {
-            nav.classList.add('bg-opacity-70', 'backdrop-blur-md');
-        } else {
+            nav.classList.add('bg-opacity-40', 'backdrop-blur-lg', 'border-b', 'border-gray-700/40');
             nav.classList.remove('bg-opacity-70', 'backdrop-blur-md');
+        } else {
+            nav.classList.remove('bg-opacity-40', 'backdrop-blur-lg', 'border-b', 'border-gray-700/40');
+            nav.classList.add('bg-opacity-70', 'backdrop-blur-md');
         }
     });
     </script>
