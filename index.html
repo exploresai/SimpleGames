@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Center | Simple Online Games</title>
+    <meta name="description" content="Play free simple games online. Enjoy action, puzzle, arcade, and more games instantly!">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-b from-indigo-100 via-purple-100 to-white min-h-screen">
+    <!-- 顶部导航栏 -->
+    <nav class="bg-white/80 backdrop-blur sticky top-0 z-10 shadow-sm">
+        <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+            <div class="flex items-center gap-2">
+                <span class="text-2xl font-bold text-indigo-600">🎮 Game Center</span>
+            </div>
+            <ul class="flex gap-6 text-gray-700 font-medium text-base">
+                <li><a href="#racing" class="hover:text-indigo-600">Racing Games</a></li>
+                <li><a href="#action" class="hover:text-indigo-600">Action Games</a></li>
+                <li><a href="#puzzle" class="hover:text-indigo-600">Puzzle Games</a></li>
+                <li><a href="#arcade" class="hover:text-indigo-600">Arcade Games</a></li>
+                <li><a href="#girls" class="hover:text-indigo-600">Girls Games</a></li>
+                <li><a href="#simulation" class="hover:text-indigo-600">Simulation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 欢迎区块 -->
+    <header class="max-w-3xl mx-auto text-center py-12">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4">Welcome to Free Online Gaming World</h1>
+        <p class="text-lg sm:text-xl text-gray-600 mb-6">Over 30 exciting games waiting for you to experience, supporting PC and mobile devices</p>
+    </header>
+
+    <!-- Monster Survivors 游戏嵌入区块 -->
+    <section class="max-w-3xl mx-auto mb-12">
+        <div class="relative w-full pb-[56.25%] bg-black rounded-xl shadow-lg overflow-hidden border border-gray-200">
+            <iframe 
+                src="https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-og.html"
+                class="absolute top-0 left-0 w-full h-full border-0"
+                allowfullscreen="">
+            </iframe>
+        </div>
+        <div class="text-center mt-2 text-gray-500 text-sm">Monster Survivors - Play Now!</div>
+    </section>
+
+    <!-- 游戏分类区块 -->
+    <main class="max-w-6xl mx-auto px-4 pb-16">
+        <!-- Racing Games -->
+        <section id="racing" class="mb-10">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4 flex items-center gap-2"><span>🚗</span> Racing Games</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+                    <img src="https://img.onlinegames.io/2025/unity/monster-truck.jpg" alt="Monster Truck" class="rounded mb-2 w-full h-32 object-cover">
+                    <div class="font-semibold text-gray-800">Monster Truck</div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+                    <img src="https://img.onlinegames.io/2025/unity/mini-cars.jpg" alt="Mini Cars" class="rounded mb-2 w-full h-32 object-cover">
+                    <div class="font-semibold text-gray-800">Mini Cars</div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+                    <img src="https://img.onlinegames.io/2025/unity/drift-king.jpg" alt="Drift King" class="rounded mb-2 w-full h-32 object-cover">
+                    <div class="font-semibold text-gray-800">Drift King</div>
+                </div>
+            </div>
+        </section>
+        <!-- 其他分类可继续添加 -->
+        <section id="action" class="mb-10">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4 flex items-center gap-2"><span>⚔️</span> Action Games</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+                    <img src="https://img.onlinegames.io/2025/unity/hero-battle.jpg" alt="Hero Battle" class="rounded mb-2 w-full h-32 object-cover">
+                    <div class="font-semibold text-gray-800">Hero Battle</div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+                    <img src="https://img.onlinegames.io/2025/unity/zombie-attack.jpg" alt="Zombie Attack" class="rounded mb-2 w-full h-32 object-cover">
+                    <div class="font-semibold text-gray-800">Zombie Attack</div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
+                    <img src="https://img.onlinegames.io/2025/unity/ninja-run.jpg" alt="Ninja Run" class="rounded mb-2 w-full h-32 object-cover">
+                    <div class="font-semibold text-gray-800">Ninja Run</div>
+                </div>
+            </div>
+        </section>
+        <!-- 你可以继续添加 Puzzle, Arcade, Girls, Simulation 等分类 -->
+    </main>
+
+    <footer class="border-t pt-6 pb-4 text-center text-gray-500 text-sm bg-white/80 mt-8">
+        &copy; 2025 simplegames.info - Your source for the best simple online games.
+    </footer>
+</body>
+</html>
