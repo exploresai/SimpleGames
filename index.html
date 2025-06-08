@@ -8,104 +8,143 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-b from-indigo-100 via-purple-100 to-white min-h-screen">
-    <!-- 顶部导航栏 -->
-    <nav class="bg-white/80 backdrop-blur sticky top-0 z-10 shadow-sm">
-        <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl font-bold text-indigo-600">🎮 Simple Games</span>
-            </div>
-            <ul class="flex gap-6 text-gray-700 font-medium text-base">
-                <li><a href="#racing" class="hover:text-indigo-600">Racing Games</a></li>
-                <li><a href="#action" class="hover:text-indigo-600">Action Games</a></li>
-                <li><a href="#puzzle" class="hover:text-indigo-600">Puzzle Games</a></li>
-                <li><a href="#arcade" class="hover:text-indigo-600">Arcade Games</a></li>
-                <li><a href="#girls" class="hover:text-indigo-600">Girls Games</a></li>
-                <li><a href="#simulation" class="hover:text-indigo-600">Simulation</a></li>
-            </ul>
+<body class="bg-gray-900 min-h-screen">
+    <!-- Top Navbar -->
+    <nav class="bg-gray-800 text-white px-4 py-3 flex items-center justify-between sticky top-0 z-20 shadow">
+        <div class="flex items-center gap-3">
+            <button id="sidebar-toggle" class="md:hidden text-2xl focus:outline-none mr-2">☰</button>
+            <span class="text-2xl font-bold tracking-wide">🎮 Simplegames</span>
+        </div>
+        <div class="flex-1 max-w-lg mx-4">
+            <input type="text" id="search" placeholder="Search games..." class="w-full rounded bg-gray-700 text-white px-4 py-2 focus:outline-none" />
         </div>
     </nav>
 
-    <!-- 欢迎区块 -->
-    <header class="max-w-3xl mx-auto text-center py-12">
-        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4">Welcome to Free Online Gaming World</h1>
-        <p class="text-lg sm:text-xl text-gray-600 mb-6">Over 30 exciting games waiting for you to experience, supporting PC and mobile devices</p>
-    </header>
-
-    <!-- Puzzle Games Special Section -->
-    <section id="puzzle-section" class="max-w-6xl mx-auto px-4 mb-12">
-        <h2 class="text-3xl font-bold text-indigo-700 mb-4 flex items-center gap-2"><span class="text-2xl">🧩</span> Puzzle Games</h2>
-        <div id="puzzle-games-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-        </div>
-    </section>
-
-    <!-- 游戏分类区块 -->
-    <main class="max-w-6xl mx-auto px-4 pb-16">
-        <!-- Racing Games -->
-        <section id="racing" class="mb-10">
-            <h2 class="text-2xl font-bold text-indigo-700 mb-4 flex items-center gap-2"><span>🚗</span> Racing Games</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
-                    <img src="https://img.onlinegames.io/2025/unity/monster-truck.jpg" alt="Monster Truck" class="rounded mb-2 w-full h-32 object-cover">
-                    <div class="font-semibold text-gray-800">Monster Truck</div>
-                </div>
-                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
-                    <img src="https://img.onlinegames.io/2025/unity/mini-cars.jpg" alt="Mini Cars" class="rounded mb-2 w-full h-32 object-cover">
-                    <div class="font-semibold text-gray-800">Mini Cars</div>
-                </div>
-                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
-                    <img src="https://img.onlinegames.io/2025/unity/drift-king.jpg" alt="Drift King" class="rounded mb-2 w-full h-32 object-cover">
-                    <div class="font-semibold text-gray-800">Drift King</div>
-                </div>
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="bg-gray-800 text-gray-200 w-56 min-h-screen pt-6 px-4 fixed md:static z-30 transition-transform duration-300 -translate-x-full md:translate-x-0">
+            <div class="mb-6">
+                <div class="text-lg font-bold mb-4">Categories</div>
+                <ul id="category-list" class="space-y-2">
+                    <!-- 分类列表JS填充 -->
+                </ul>
             </div>
-        </section>
-        <!-- 其他分类可继续添加 -->
-        <section id="action" class="mb-10">
-            <h2 class="text-2xl font-bold text-indigo-700 mb-4 flex items-center gap-2"><span>⚔️</span> Action Games</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
-                    <img src="https://img.onlinegames.io/2025/unity/hero-battle.jpg" alt="Hero Battle" class="rounded mb-2 w-full h-32 object-cover">
-                    <div class="font-semibold text-gray-800">Hero Battle</div>
-                </div>
-                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
-                    <img src="https://img.onlinegames.io/2025/unity/zombie-attack.jpg" alt="Zombie Attack" class="rounded mb-2 w-full h-32 object-cover">
-                    <div class="font-semibold text-gray-800">Zombie Attack</div>
-                </div>
-                <div class="bg-white rounded-lg shadow p-4 flex flex-col items-center">
-                    <img src="https://img.onlinegames.io/2025/unity/ninja-run.jpg" alt="Ninja Run" class="rounded mb-2 w-full h-32 object-cover">
-                    <div class="font-semibold text-gray-800">Ninja Run</div>
-                </div>
-            </div>
-        </section>
-        <!-- 你可以继续添加 Puzzle, Arcade, Girls, Simulation 等分类 -->
-    </main>
+        </aside>
 
-    <footer class="border-t pt-6 pb-4 text-center text-gray-500 text-sm bg-white/80 mt-8">
-        &copy; 2025 simplegames.info - Your source for the best simple online games.
-    </footer>
+        <!-- Main Content -->
+        <main id="main-content" class="flex-1 ml-0 md:ml-56 p-4 md:p-8 transition-all duration-300">
+            <h1 class="text-3xl font-bold text-white mb-6">New games</h1>
+            <div id="games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <!-- 游戏卡片JS填充 -->
+            </div>
+        </main>
+    </div>
 
     <script>
+    // 分类列表
+    const categories = [
+        { key: 'all', label: 'All', emoji: '🎮' },
+        { key: 'racing', label: 'Racing', emoji: '🚗' },
+        { key: 'action', label: 'Action', emoji: '⚔️' },
+        { key: 'puzzle', label: 'Puzzle', emoji: '🧩' },
+        { key: 'arcade', label: 'Arcade', emoji: '🕹️' },
+        { key: 'girls', label: 'Girls', emoji: '👧' },
+        { key: 'simulation', label: 'Simulation', emoji: '🛠️' },
+        // 可继续添加
+    ];
+
+    // 填充分类侧边栏
+    const categoryList = document.getElementById('category-list');
+    categories.forEach(cat => {
+        const li = document.createElement('li');
+        li.innerHTML = `<button class="w-full text-left px-2 py-1 rounded hover:bg-gray-700 flex items-center gap-2" data-cat="${cat.key}"><span>${cat.emoji}</span> ${cat.label}</button>`;
+        categoryList.appendChild(li);
+    });
+
+    // 侧边栏隐藏/显示
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const mainContent = document.getElementById('main-content');
+    function closeSidebar() {
+        sidebar.classList.add('-translate-x-full');
+        mainContent.classList.remove('sidebar-open');
+    }
+    function openSidebar() {
+        sidebar.classList.remove('-translate-x-full');
+        mainContent.classList.add('sidebar-open');
+    }
+    sidebarToggle.addEventListener('click', () => {
+        if (sidebar.classList.contains('-translate-x-full')) {
+            openSidebar();
+        } else {
+            closeSidebar();
+        }
+    });
+    // 点击侧边栏分类自动收起（移动端）
+    categoryList.addEventListener('click', e => {
+        if (e.target.tagName === 'BUTTON' && window.innerWidth < 768) {
+            closeSidebar();
+        }
+    });
+    // 点击主内容区收起侧边栏（移动端体验优化）
+    mainContent.addEventListener('click', () => {
+        if (window.innerWidth < 768) closeSidebar();
+    });
+
+    // 游戏卡片渲染
+    let allGames = [];
+    let currentCategory = 'all';
+    let searchTerm = '';
+
+    function renderGames() {
+        const grid = document.getElementById('games-grid');
+        let games = allGames;
+        if (currentCategory !== 'all') {
+            games = games.filter(g => g.category === currentCategory);
+        }
+        if (searchTerm) {
+            games = games.filter(g => g.title.toLowerCase().includes(searchTerm.toLowerCase()));
+        }
+        // 默认显示全部游戏
+        if (!games.length) {
+            grid.innerHTML = '<div class="col-span-full text-gray-400 text-center py-12">No games found.</div>';
+            return;
+        }
+        grid.innerHTML = games.map(g => `
+            <div class="relative bg-gray-800 rounded-lg shadow hover:shadow-lg transition p-2 flex flex-col cursor-pointer group">
+                <img src="${g.cover || ''}" alt="${g.title}" class="rounded mb-2 w-full h-28 object-cover bg-gray-700 group-hover:opacity-80 transition" onerror="this.onerror=null;this.src='https://via.placeholder.com/240x100?text=No+Image';">
+                <div class="font-semibold text-white text-sm truncate mb-1">${g.title}</div>
+                <div class="absolute top-2 left-2">
+                    ${g.badge ? `<span class="bg-pink-500 text-xs text-white px-2 py-0.5 rounded-full font-bold">${g.badge}</span>` : ''}
+                </div>
+                <a href="game.html?id=${g.id}" class="absolute inset-0"></a>
+            </div>
+        `).join('');
+    }
+
+    // 分类点击
+    categoryList.addEventListener('click', e => {
+        if (e.target.tagName === 'BUTTON') {
+            currentCategory = e.target.getAttribute('data-cat');
+            renderGames();
+        }
+    });
+
+    // 搜索
+    document.getElementById('search').addEventListener('input', e => {
+        searchTerm = e.target.value;
+        renderGames();
+    });
+
+    // 加载游戏数据
     async function loadGames() {
         const res = await fetch('games.json');
-        const games = await res.json();
-        // Puzzle Games
-        const puzzleGames = games.filter(g => g.category === 'puzzle');
-        const puzzleList = document.getElementById('puzzle-games-list');
-        if (puzzleGames.length) {
-            puzzleList.innerHTML = puzzleGames.map(g => `
-                <div class="bg-white rounded-lg shadow p-8 flex flex-col items-center h-56">
-                    <img src="${g.cover || ''}" alt="${g.title}" class="rounded mb-3 w-full h-32 object-cover" onerror="this.style.display='none'">
-                    <div class="font-semibold text-gray-800 mb-1 text-lg">${g.title}</div>
-                    <div class="text-gray-500 text-sm mb-2 line-clamp-2">${g.desc || ''}</div>
-                    <a href="game.html?id=${g.id}" class="mt-auto bg-indigo-600 text-white px-4 py-1 rounded hover:bg-indigo-700 text-sm">Play</a>
-                </div>
-            `).join('');
-        } else {
-            puzzleList.innerHTML = '<div class="text-gray-500">No puzzle games found.</div>';
-        }
-        // 其余分类加载逻辑...
+        allGames = await res.json();
+        renderGames();
     }
     loadGames();
+    // 页面加载后默认显示全部游戏
+    currentCategory = 'all';
     </script>
 </body>
 </html>
