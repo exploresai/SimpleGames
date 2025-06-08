@@ -10,30 +10,34 @@
 </head>
 <body class="bg-gray-900 min-h-screen">
     <!-- Top Navbar -->
-    <nav class="bg-gray-800 text-white px-4 py-3 flex items-center justify-between sticky top-0 z-20 shadow">
+    <nav id="main-navbar" class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900/90 text-white px-6 py-3 flex items-center justify-between sticky top-0 z-50 shadow-lg transition-all duration-300">
         <div class="flex items-center gap-3">
+            <a href="index.html" class="flex items-center gap-2">
+                <span class="inline-block w-8 h-8 mr-2"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a2 2 0 012-2h2a2 2 0 012 2v2m-6 0a2 2 0 01-2-2v-2a2 2 0 012-2h2a2 2 0 012 2v2m-6 0V7a2 2 0 012-2h2a2 2 0 012 2v2m6 0V7a2 2 0 00-2-2h-2a2 2 0 00-2 2v2"/></svg></span>
+                <span class="text-2xl font-extrabold tracking-wider">Simplegames</span>
+            </a>
             <button id="sidebar-toggle" class="md:hidden text-2xl focus:outline-none mr-2">☰</button>
-            <span class="text-2xl font-bold tracking-wide">🎮 Simple Games</span>
         </div>
         <div class="flex-1 max-w-lg mx-4">
-            <input type="text" id="search" placeholder="Search games..." class="w-full rounded bg-gray-700 text-white px-4 py-2 focus:outline-none" />
+            <input type="text" id="search" placeholder="Search games..." class="w-full rounded-xl bg-gray-700 text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner placeholder-gray-400 transition" />
         </div>
     </nav>
 
     <div class="flex">
         <!-- Sidebar -->
-        <aside id="sidebar" class="bg-gray-800 text-gray-200 min-h-screen pt-2 px-2 fixed md:static z-30 transition-all duration-300 -translate-x-full md:translate-x-0" style="width:180px;">
-            <div class="flex items-center justify-between mb-4">
-                <div class="text-lg font-bold">Categories</div>
-                <button id="sidebar-collapse" class="text-gray-400 hover:text-white text-xl ml-2" title="Collapse sidebar">«</button>
-            </div>
+        <aside id="sidebar" class="bg-gray-800 text-gray-200 fixed top-0 left-0 h-screen pt-20 px-2 z-30 transition-all duration-300 shadow-lg -translate-x-full md:translate-x-0" style="width:180px;">
             <ul id="category-list" class="space-y-2">
+                <li class="flex justify-center">
+                    <button id="sidebar-collapse" class="mb-2 text-white text-xl rounded-full w-7 h-7 flex items-center justify-center shadow bg-gray-700 hover:bg-indigo-600 transition-transform duration-200 mx-auto" title="Collapse sidebar">
+                        <svg id="sidebar-chevron" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                    </button>
+                </li>
                 <!-- 分类列表JS填充 -->
             </ul>
         </aside>
 
         <!-- Main Content -->
-        <main id="main-content" class="flex-1 ml-0 md:ml-56 p-2 md:p-4 transition-all duration-300">
+        <main id="main-content" class="flex-1 ml-0 md:ml-[180px] p-2 md:p-4 transition-all duration-300">
             <h1 class="text-3xl font-bold text-white mb-4">New games</h1>
             <div id="games-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <!-- 游戏卡片JS填充 -->
@@ -47,10 +51,11 @@
         .sidebar-collapsed #category-list button .cat-label,
         .sidebar-collapsed .text-lg { display: none !important; }
         .sidebar-collapsed #category-list button { justify-content: center; }
-        .sidebar-collapsed #sidebar-collapse { transform: rotate(180deg); }
+        .sidebar-collapsed #sidebar-chevron { transform: rotate(180deg); }
         .sidebar-collapsed #category-list button { padding-left: 0.5rem; padding-right: 0.5rem; }
+        .sidebar-collapsed ~ #main-content { margin-left: 56px !important; }
         @media (min-width: 768px) {
-            .sidebar-collapsed + #main-content { margin-left: 56px !important; }
+            .sidebar-collapsed ~ #main-content { margin-left: 56px !important; }
         }
     </style>
 
@@ -69,9 +74,9 @@
 
     // 填充分类侧边栏
     const categoryList = document.getElementById('category-list');
-    categories.forEach(cat => {
+    categories.forEach((cat, idx) => {
         const li = document.createElement('li');
-        li.innerHTML = `<button class="w-full text-left px-2 py-1 rounded hover:bg-gray-700 flex items-center gap-2" data-cat="${cat.key}"><span>${cat.emoji}</span> <span class="cat-label">${cat.label}</span></button>`;
+        li.innerHTML = `<button class="w-full text-left px-2 py-1 rounded flex items-center gap-2 transition-all duration-150 text-sm hover:text-gray-400 hover:translate-y-0.5 hover:scale-95 focus:outline-none" data-cat="${cat.key}"><span>${cat.emoji}</span> <span class="cat-label">${cat.label}</span></button>`;
         categoryList.appendChild(li);
     });
 
@@ -125,9 +130,11 @@
             return;
         }
         grid.innerHTML = games.map(g => `
-            <div class="relative bg-gray-800 rounded-lg shadow hover:shadow-lg transition p-2 flex flex-col cursor-pointer group">
-                <img src="${g.cover || ''}" alt="${g.title}" class="rounded mb-2 w-full h-36 object-cover bg-gray-700 group-hover:opacity-80 transition" onerror="this.onerror=null;this.src='https://via.placeholder.com/240x100?text=No+Image';">
-                <div class="font-semibold text-white text-sm truncate mb-1">${g.title}</div>
+            <div class="relative bg-gray-800 rounded-lg shadow hover:shadow-lg transition p-2 flex flex-col cursor-pointer group overflow-hidden">
+                <img src="${g.cover || ''}" alt="${g.title}" class="rounded w-full h-36 object-cover bg-gray-700 group-hover:opacity-80 transition" onerror="this.onerror=null;this.src='https://via.placeholder.com/240x100?text=No+Image';">
+                <div class="absolute left-2 bottom-2 text-white text-sm font-semibold bg-black/60 px-2 py-1 rounded opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 pointer-events-none">
+                    ${g.title}
+                </div>
                 <div class="absolute top-2 left-2">
                     ${g.badge ? `<span class="bg-pink-500 text-xs text-white px-2 py-0.5 rounded-full font-bold">${g.badge}</span>` : ''}
                 </div>
@@ -160,15 +167,13 @@
     // 页面加载后默认显示全部游戏
     currentCategory = 'all';
 
-    // 侧边栏收起/展开
-    const sidebarCollapse = document.getElementById('sidebar-collapse');
+    // 动态设置侧边栏宽度
     function getSidebarExpandedWidth() {
-        // 计算最长栏目emoji+文字宽度+5px
         const temp = document.createElement('div');
         temp.style.position = 'absolute';
         temp.style.visibility = 'hidden';
-        temp.style.fontSize = '1rem';
-        temp.style.fontWeight = 'bold';
+        temp.style.fontSize = '0.875rem'; // text-sm
+        temp.style.fontWeight = 'normal';
         temp.style.fontFamily = 'inherit';
         let max = 0;
         categories.forEach(cat => {
@@ -177,29 +182,38 @@
             max = Math.max(max, temp.offsetWidth);
             document.body.removeChild(temp);
         });
-        return max + 5;
+        return max + 36; // 36px padding/space
     }
     function setSidebarWidth(collapsed) {
-        const sidebar = document.getElementById('sidebar');
         if (collapsed) {
             sidebar.style.width = '56px';
         } else {
             sidebar.style.width = getSidebarExpandedWidth() + 'px';
         }
     }
+    // 初始化展开宽度
+    setSidebarWidth(false);
+    // 修改折叠按钮事件
+    const sidebarCollapse = document.getElementById('sidebar-collapse');
     sidebarCollapse.addEventListener('click', () => {
         sidebar.classList.toggle('sidebar-collapsed');
         setSidebarWidth(sidebar.classList.contains('sidebar-collapsed'));
         if (sidebar.classList.contains('sidebar-collapsed')) {
-            mainContent.classList.add('ml-14');
-            mainContent.classList.remove('md:ml-56');
+            mainContent.style.marginLeft = '56px';
         } else {
-            mainContent.classList.remove('ml-14');
-            mainContent.classList.add('md:ml-56');
+            mainContent.style.marginLeft = sidebar.style.width;
         }
     });
-    // 初始化展开宽度
-    setSidebarWidth(false);
+
+    // 顶部导航栏滚动时半透明+模糊
+    window.addEventListener('scroll', function() {
+        const nav = document.getElementById('main-navbar');
+        if (window.scrollY > 10) {
+            nav.classList.add('bg-opacity-70', 'backdrop-blur-md');
+        } else {
+            nav.classList.remove('bg-opacity-70', 'backdrop-blur-md');
+        }
+    });
     </script>
 </body>
 </html>
