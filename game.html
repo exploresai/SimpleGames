@@ -128,16 +128,8 @@
         { key: 'all', label: 'All', emoji: '🎮' }, { key: 'racing', label: 'Racing', emoji: '🏍' },
         { key: 'action', label: 'Action', emoji: '⚔️' }, { key: 'puzzle', label: 'Puzzle', emoji: '🧩' },
         { key: 'arcade', label: 'Arcade', emoji: '🕹️' }, { key: 'girls', label: 'Girls', emoji: '👧' },
-        { key: 'simulation', label: 'Simulation', emoji: '🛠️' },
+        { key: 'simulation', label: 'Simulation', emoji: '��️' },
     ];
-    // Mock game data to make the page runnable without a real backend
-    const mockGames = [
-        { id: 1, title: 'Speed Racer', category: 'racing', cover: 'https://placehold.co/400x300/f87171/ffffff?text=Racing+Game', badge: 'New', iframe: 'about:blank', desc: 'A thrilling high-speed racing game.', howto: 'Use arrow keys to steer, space to boost.', controls: ['Arrow Keys', 'Spacebar']},
-        { id: 2, title: 'Dungeon Crawler', category: 'action', cover: 'https://placehold.co/400x300/fb923c/ffffff?text=Action+Game', iframe: 'about:blank', desc: 'Explore dark dungeons and fight monsters.', howto: 'Use WASD to move, click to attack.', controls: ['WASD', 'Mouse Click']},
-        { id: 3, title: 'Mind Bender', category: 'puzzle', cover: 'https://placehold.co/400x300/fbbf24/ffffff?text=Puzzle+Game', iframe: 'about:blank', desc: 'Solve intricate puzzles to test your logic.', howto: 'Click and drag pieces to solve.', controls: ['Mouse Click & Drag']},
-        { id: 4, title: 'Pixel Invaders', category: 'arcade', cover: 'https://placehold.co/400x300/a3e635/ffffff?text=Arcade+Game', iframe: 'about:blank', desc: 'A retro arcade shooter.', howto: 'Move with arrow keys, shoot with spacebar.', controls: ['Arrow Keys', 'Spacebar']},
-    ];
-
     // --- DOM ELEMENTS ---
     const categoryList = document.getElementById('category-list');
     const sidebar = document.getElementById('sidebar');
@@ -156,8 +148,8 @@
     const restartBtn = document.getElementById('restart-btn');
     const mainNavbar = document.getElementById('main-navbar');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-
     // --- STATE ---
+    let allGames = [];
     let currentGameId = null;
 
     // --- FUNCTIONS ---
@@ -193,70 +185,59 @@
         `).join('');
     }
 
-    function loadGame() {
+    async function loadAndRenderPage() {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
         currentGameId = id;
-        // fetch games.json
-        fetch('games.json')
-            .then(res => res.json())
-            .then(games => {
-                allGames.length = 0;
-                allGames.push(...games);
-                const game = allGames.find(g => String(g.id) === String(id));
-                if (!game) {
-                    gameTitle.textContent = "Game not found";
-                    gameDesc.textContent = "Please select a game from the homepage.";
-                    return;
-                }
-                document.title = game.title + ' | Simple Games';
-                gameTitle.textContent = game.title;
-                gameIframe.src = game.iframe;
-                gameDesc.textContent = game.desc || '';
-                if (game.howto) {
-                    gameHowto.innerHTML = `<span class="font-semibold text-gray-800 dark:text-gray-200">How to Play:</span> ${game.howto}`;
-                } else {
-                    gameHowto.innerHTML = '';
-                }
-                if (game.controls && Array.isArray(game.controls)) {
-                    controlsList.innerHTML = game.controls.map(c => `<li>${c}</li>`).join('');
-                    controlsList.parentElement.style.display = 'block';
-                } else {
-                    controlsList.parentElement.style.display = 'none';
-                }
-                restartBtn.onclick = function() {
-                    gameIframe.src = gameIframe.src;
-                };
-                renderRecommendations(allGames, game.id);
-            })
-            .catch(() => {
-                // fallback to mock data
-                const game = mockGames.find(g => String(g.id) === String(id));
-                if (!game) {
-                    gameTitle.textContent = "Game not found";
-                    gameDesc.textContent = "Please select a game from the homepage.";
-                    return;
-                }
-                document.title = game.title + ' | Simple Games';
-                gameTitle.textContent = game.title;
-                gameIframe.src = game.iframe;
-                gameDesc.textContent = game.desc || '';
-                if (game.howto) {
-                    gameHowto.innerHTML = `<span class="font-semibold text-gray-800 dark:text-gray-200">How to Play:</span> ${game.howto}`;
-                } else {
-                    gameHowto.innerHTML = '';
-                }
-                if (game.controls && Array.isArray(game.controls)) {
-                    controlsList.innerHTML = game.controls.map(c => `<li>${c}</li>`).join('');
-                    controlsList.parentElement.style.display = 'block';
-                } else {
-                    controlsList.parentElement.style.display = 'none';
-                }
-                restartBtn.onclick = function() {
-                    gameIframe.src = gameIframe.src;
-                };
-                renderRecommendations(mockGames, game.id);
-            });
+
+        if (!id) {
+            gameTitle.textContent = "Game not found";
+            gameDesc.textContent = "Please select a game from the homepage.";
+            return;
+        }
+
+        try {
+            const response = await fetch('games.json');
+            if (!response.ok) throw new Error('Network response was not ok');
+            allGames = await response.json();
+            
+            const game = allGames.find(g => String(g.id) === String(id));
+            
+            if (!game) {
+                gameTitle.textContent = "Game not found";
+                gameDesc.textContent = `No game found with ID ${id}.`;
+                return;
+            }
+
+            document.title = game.title + ' | Simple Games';
+            gameTitle.textContent = game.title;
+            gameIframe.src = game.iframe || 'about:blank'; // Set iframe src
+            gameDesc.textContent = game.desc || '';
+            
+            if (game.howto) {
+                gameHowto.innerHTML = `<span class="font-semibold text-gray-800 dark:text-gray-200">How to Play:</span> ${game.howto}`;
+            } else {
+                gameHowto.innerHTML = '';
+            }
+
+            if (game.controls && Array.isArray(game.controls) && game.controls.length > 0) {
+                controlsList.innerHTML = game.controls.map(c => `<li>${c}</li>`).join('');
+                controlsList.parentElement.style.display = 'block';
+            } else {
+                controlsList.parentElement.style.display = 'none';
+            }
+
+            restartBtn.onclick = function() {
+                gameIframe.src = gameIframe.src;
+            };
+            
+            renderRecommendations(allGames, game.id);
+
+        } catch (error) {
+            console.error("Failed to load and render game:", error);
+            gameTitle.textContent = "Error";
+            gameDesc.textContent = "Could not load game data. Please try again later.";
+        }
     }
 
     function setTheme(mode) {
@@ -274,7 +255,7 @@
     // --- EVENT LISTENERS ---
     document.addEventListener('DOMContentLoaded', () => {
         populateCategories();
-        loadGame();
+        loadAndRenderPage(); // Single call to load and render everything
 
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
