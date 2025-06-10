@@ -1,2 +1,5 @@
 {
+      // ... 你的其他设置
+  "http.proxy": "http://127.0.0.1:7890",
+  "http.proxyStrictSSL": false
 }
