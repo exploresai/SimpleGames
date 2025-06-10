@@ -275,8 +275,8 @@
 
             document.title = game.title + ' | Simple Games';
             gameTitle.textContent = game.title;
-            gameIframe.src = game.iframe || 'about:blank'; // Set iframe src
-            gameDesc.textContent = game.desc || '';
+            gameIframe.src = game.iframe || 'about:blank';
+            gameDesc.innerHTML = game.desc || ''; // MODIFIED: Use innerHTML to render HTML descriptions
             
             if (game.howto) {
                 const howToPlayLabel = translations[lang]?.howToPlay || "How to Play:";
