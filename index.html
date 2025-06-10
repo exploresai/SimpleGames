@@ -25,6 +25,7 @@
     <script>
         tailwind.config = { darkMode: 'class' }
     </script>
+    <script src="translations.js"></script>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
     <!-- Top Navbar -->
@@ -43,6 +44,21 @@
             </button>
             <input type="text" id="search" placeholder="Search games..." class="w-full rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner placeholder-gray-400 transition" />
         </div>
+        <!-- 语言切换下拉菜单 -->
+        <div class="relative">
+            <button id="language-toggle" class="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700">
+                <span id="current-language">EN</span>
+                <span class="text-xs">▼</span>
+            </button>
+            <ul id="language-menu" class="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 hidden">
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en">English</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="es">Español</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="fr">Français</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="de">Deutsch</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="ja">日本語</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="ko">한국어</button></li>
+            </ul>
+        </div>
     </nav>
 
     <!-- Sidebar -->
@@ -56,7 +72,7 @@
     <!-- Main Content -->
     <main id="main-content" class="p-6 md:ml-40 transition-all duration-300">
         <section class="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-            <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">New games</h1>
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4" data-translate="newGames">New games</h1>
             <div id="games-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
                 <!-- Game cards will be populated by JS -->
             </div>
@@ -223,7 +239,9 @@
 
     // Initial page load setup
     document.addEventListener('DOMContentLoaded', () => {
+        // 在DOMContentLoaded事件中
         populateCategories();
+        initLanguage();
         loadGames();
 
         // Initialize theme based on saved preference or system setting
@@ -266,3 +284,18 @@
     </script>
 </body>
 </html>
+/* 修复5：添加CSS确保菜单显示在顶层 */
+#language-menu {
+    z-index: 1000; /* 确保高于其他元素 */
+    position: absolute;
+    right: 0;
+    top: 100%;
+    min-width: 120px;
+}
+
+#language-toggle {
+    cursor: pointer;
+    position: relative;
+}
+<script src="language.js"></script>
+</body>
