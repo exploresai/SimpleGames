@@ -37,7 +37,7 @@
             gtag('config', 'G-BVDV2Y475C');
         </script>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 min-h-screen">
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col"> <!-- body is flex container -->
     <!-- Top Navbar -->
     <nav id="main-navbar" class="bg-gradient-to-r from-white via-gray-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900/90 shadow text-gray-900 dark:text-white px-6 py-3 flex items-center justify-between sticky top-0 z-50 transition-all duration-300">
         <div class="flex items-center gap-3">
@@ -48,55 +48,77 @@
             </a>
             <!-- REMOVED md:hidden from sidebar-toggle and moved it here -->
         </div>
-        <div class="flex-1 max-w-lg mx-4 flex items-center gap-2">
+        <div class="flex-1 max-w-lg mx-4 flex items-center gap-2"> <!-- MODIFIED: Ensured this div exists for consistency -->
             <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full bg-indigo-100 dark:bg-gray-700 text-indigo-500 dark:text-gray-200 shadow hover:bg-indigo-200 dark:hover:bg-gray-600 transition" data-translate-attr="toggleThemeTitle:title">
                 <span id="theme-icon"></span>
             </button>
+            <!-- Search input - same as index.html -->
             <input type="text" id="search" data-translate-attr="searchPlaceholder:placeholder" placeholder="Search games..." class="w-full rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner placeholder-gray-400 transition" />
+        </div>
+        <!-- Language toggle dropdown - same as index.html -->
+        <div class="relative">
+            <button id="language-toggle" class="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700">
+                <span id="current-language" data-translate="currentLanguage">EN</span>
+                <span class="text-xs">▼</span>
+            </button>
+            <ul id="language-menu" class="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 hidden">
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en" data-translate="lang_en">English</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="es" data-translate="lang_es">Español</button></li>
+                <!-- Add other languages as in index.html -->
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="fr" data-translate="lang_fr">Français</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="de" data-translate="lang_de">Deutsch</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="ja" data-translate="lang_ja">日本語</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="ko" data-translate="lang_ko">한국어</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="zh-CN" data-translate="lang_zh_cn">简体中文</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="zh-TW" data-translate="lang_zh_tw">繁體中文</button></li>
+            </ul>
         </div>
     </nav>
 
-    <!-- Sidebar -->
-    <aside id="sidebar" class="fixed top-0 left-0 z-40 w-40 h-screen pt-20 bg-white/90 dark:bg-gray-800/90 shadow-md transition-transform -translate-x-full md:translate-x-0" aria-label="Sidebar">
-        <!-- REMOVED the old sidebar-collapse button -->
-        <ul id="category-list" class="space-y-2 pt-2">
-            <!-- Categories will be populated by JS -->
-        </ul>
-    </aside>
+    <!-- Container for Sidebar and Main Content -->
+    <div class="flex flex-1 overflow-hidden"> <!-- This container takes remaining height and allows content to scroll -->
+        <!-- Sidebar -->
+        <aside id="sidebar" class="fixed top-0 left-0 z-40 w-40 h-screen pt-20 bg-white/90 dark:bg-gray-800/90 shadow-md transition-transform -translate-x-full md:translate-x-0" aria-label="Sidebar">
+            <!-- REMOVED the old sidebar-collapse button -->
+            <ul id="category-list" class="space-y-2 pt-2">
+                <!-- Categories will be populated by JS -->
+            </ul>
+        </aside>
 
-    <!-- Main Content Area -->
-    <main id="main-content" class="p-6 md:ml-40 transition-all duration-300 flex flex-col h-screen">
-        <div class="flex gap-6 flex-1 overflow-hidden"> <!- MODIFIED: flex-1 and overflow-hidden to allow child to take height -->
-            <div class="flex-1 flex flex-col overflow-y-auto"> <!-- MODIFIED: flex-1 and flex-col for game area -->
-                <div class="w-full max-w-5xl mx-auto flex flex-col flex-1"> <!-- MODIFIED: flex-col and flex-1 -->
-                    <div id="game-iframe-container" class="w-full bg-black rounded-xl shadow-2xl overflow-hidden border-2 border-gray-200 dark:border-gray-700 relative"> <!-- MODIFIED: Added ID, removed aspect-video -->
-                        <iframe id="game-iframe" src="" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen></iframe>
-                    </div>
-                    <div class="w-full mt-4 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 overflow-y-auto"> <!-- Added overflow-y-auto for details if content is too long -->
-                        <h1 id="game-title" class="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100"></h1>
-                        <div id="game-desc" class="mb-4 text-gray-600 dark:text-gray-300"></div>
-                        <div id="game-howto" class="mb-4 text-gray-600 dark:text-gray-300"></div>
-                        <div id="game-controls-container" class="mb-4" style="display: none;"> <!-- Initially hidden, shown if controls exist -->
-                            <span class="font-semibold text-gray-800 dark:text-gray-200" data-translate="controlsLabel">Controls:</span>
-                            <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 text-sm mt-1" id="controls-list">
-                            </ul>
+        <!-- Main Content Area -->
+        <main id="main-content" class="p-6 md:ml-40 transition-all duration-300 flex flex-col flex-1 overflow-y-auto"> <!-- MODIFIED: Changed h-screen to flex-1, ADDED overflow-y-auto -->
+            <div class="flex gap-6 flex-1">
+                <div class="flex-1 flex flex-col"> <!-- Removed overflow-y-auto here, let main-content handle it -->
+                    <div class="w-full max-w-5xl mx-auto flex flex-col flex-1">
+                        <div id="game-iframe-container" class="w-full bg-black rounded-xl shadow-2xl overflow-hidden border-2 border-gray-200 dark:border-gray-700 relative flex-1 min-h-[800px] flex-grow">
+                            <iframe id="game-iframe" src="" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen></iframe>
                         </div>
-                        <button id="restart-btn" class="mt-2 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-semibold shadow transition-colors" data-translate="restartGame">Restart Game</button>
+                        <div class="w-full mt-4 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 overflow-y-auto min-h-0"> <!-- Added overflow-y-auto and min-h-0 -->
+                            <h1 id="game-title" class="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100"></h1>
+                            <div id="game-desc" class="mb-4 text-gray-600 dark:text-gray-300"></div>
+                            <div id="game-howto" class="mb-4 text-gray-600 dark:text-gray-300"></div>
+                            <div id="game-controls-container" class="mb-4" style="display: none;"> <!-- Initially hidden, shown if controls exist -->
+                                <span class="font-semibold text-gray-800 dark:text-gray-200" data-translate="controlsLabel">Controls:</span>
+                                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 text-sm mt-1" id="controls-list">
+                                </ul>
+                            </div>
+                            <button id="restart-btn" class="mt-2 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 font-semibold shadow transition-colors" data-translate="restartGame">Restart Game</button>
+                        </div>
                     </div>
                 </div>
+                <!-- Right Sidebar: Recommendations -->
+                <aside class="hidden lg:block w-64 flex-shrink-0">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl h-32 flex items-center justify-center text-gray-400 dark:text-gray-500 text-lg mb-6 shadow-lg border border-gray-200 dark:border-gray-700" data-translate="adSpace">Ad Space</div>
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-700">
+                        <h2 class="text-gray-900 dark:text-gray-100 font-bold mb-3 text-lg" data-translate="recommended">Recommended</h2>
+                        <div id="recommend-list" class="flex flex-col gap-3">
+                            <!-- Recommendation cards will be populated by JS -->
+                        </div>
+                    </div>
+                </aside>
             </div>
-            <!-- Right Sidebar: Recommendations -->
-            <aside class="hidden lg:block w-64 flex-shrink-0">
-                <div class="bg-white dark:bg-gray-800 rounded-xl h-32 flex items-center justify-center text-gray-400 dark:text-gray-500 text-lg mb-6 shadow-lg border border-gray-200 dark:border-gray-700" data-translate="adSpace">Ad Space</div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-700">
-                    <h2 class="text-gray-900 dark:text-gray-100 font-bold mb-3 text-lg" data-translate="recommended">Recommended</h2>
-                    <div id="recommend-list" class="flex flex-col gap-3">
-                        <!-- Recommendation cards will be populated by JS -->
-                    </div>
-                </div>
-            </aside>
-        </div>
-    </main>
+        </main>
+    </div> <!-- End of container for Sidebar and Main Content -->
     
     <!-- Backdrop for mobile sidebar -->
     <div id="sidebar-backdrop" class="bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-30 hidden md:hidden"></div>
@@ -120,6 +142,20 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
         .dark ::-webkit-scrollbar-thumb { background: #4b5563; }
         ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+    </style>
+    <!-- Added CSS for language menu positioning, same as index.html -->
+    <style>
+        #language-menu {
+            z-index: 1000; 
+            position: absolute;
+            right: 0;
+            top: 100%;
+            min-width: 120px;
+        }
+        #language-toggle {
+            cursor: pointer;
+            position: relative;
+        }
     </style>
 <footer id="page-footer" class="border-t border-gray-200 dark:border-gray-700 pt-6 pb-4 text-center text-gray-500 dark:text-gray-400 text-sm bg-white dark:bg-gray-800 mt-8 md:ml-40 transition-all duration-300">
         <div class="flex justify-center gap-8 mb-2">
@@ -153,6 +189,7 @@
     const gameDesc = document.getElementById('game-desc');
     const gameHowto = document.getElementById('game-howto');
     const controlsList = document.getElementById('controls-list');
+    const gameControlsContainer = document.getElementById('game-controls-container'); // ADDED: Get reference to the controls container
     const restartBtn = document.getElementById('restart-btn');
     const mainNavbar = document.getElementById('main-navbar');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
@@ -214,23 +251,11 @@
         adjustGameContainerSize(); // Call on sidebar change
     }
 
+    // Removed adjustGameContainerSize function as flexbox will handle height
     function adjustGameContainerSize() {
-        if (!mainNavbar || !gameIframeContainer) return;
-
-        const navbarHeight = mainNavbar.offsetHeight;
-        const viewportHeight = window.innerHeight;
-        const availableHeight = viewportHeight - navbarHeight;
-        
-        // Calculate 90% of the available height for the game container
-        // The main content area has padding (p-6), so we might need to account for that.
-        // Let's assume p-6 means 1.5rem top and 1.5rem bottom padding (24px each at 16px base).
-        const mainContentPaddingY = parseFloat(getComputedStyle(mainContent).paddingTop) + parseFloat(getComputedStyle(mainContent).paddingBottom);
-        const gameContainerTargetHeight = (availableHeight - mainContentPaddingY) * 0.9;
-
-        gameIframeContainer.style.height = `${gameContainerTargetHeight}px`;
-        
-        // Adjust the details container height if necessary, or let it scroll
-        // For now, the details container has overflow-y-auto
+        // This function is no longer needed with the simplified flexbox layout
+        // The iframe container will take up the available space due to flex-1
+        // console.log("adjustGameContainerSize called, but logic is now handled by CSS flexbox."); // Keep console log for debugging if needed
     }
 
     function renderRecommendations(games, currentId) {
@@ -275,8 +300,8 @@
 
             document.title = game.title + ' | Simple Games';
             gameTitle.textContent = game.title;
-            gameIframe.src = game.iframe || 'about:blank';
-            gameDesc.innerHTML = game.desc || ''; // MODIFIED: Use innerHTML to render HTML descriptions
+            gameIframe.src = game.iframe || 'about:blank'; // Set iframe src
+            gameDesc.innerHTML = game.desc ? game.desc.replace(/\n/g, '<br>') : ''; // Replace newlines with <br> for proper HTML rendering
             
             if (game.howto) {
                 const howToPlayLabel = translations[lang]?.howToPlay || "How to Play:";
@@ -299,7 +324,7 @@
             };
             
             renderRecommendations(allGames, game.id);
-            adjustGameContainerSize(); // Adjust size after content is loaded
+            // adjustGameContainerSize(); // Removed call, height is handled by CSS
 
         } catch (error) {
             console.error("Failed to load and render game:", error);
@@ -339,7 +364,7 @@
         } else {
             openSidebar();
         }
-        adjustGameContainerSize(); // Initial adjustment
+        // adjustGameContainerSize(); // Removed call, height is handled by CSS
     });
 
     sidebarToggle.addEventListener('click', () => {
@@ -382,8 +407,6 @@
             mainNavbar.classList.remove('bg-white/80', 'dark:bg-gray-900/80', 'backdrop-blur-lg');
         }
     });
-
-    // adjustGameContainerSize(); // Called within loadAndRenderPage and openSidebar
 
     sidebarBackdrop.addEventListener('click', closeSidebar);
     </script>

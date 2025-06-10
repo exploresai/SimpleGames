@@ -36,7 +36,10 @@ const translations = {
         error: "Error",
         couldNotLoadGame: "Could not load game data. Please try again later.",
         howToPlay: "How to Play:",
-        controlsLabel: "Controls:"
+        controlsLabel: "Controls:",
+        "pen.setSize": "Set Pen Size",
+        "pen.categoryName": "Pen Category",
+        "pen.colorMenu.transparency": "Transparency" // Added missing translation
     },
     es: {
         currentLanguage: "ES",
@@ -75,7 +78,9 @@ const translations = {
         error: "Error",
         couldNotLoadGame: "No se pudieron cargar los datos del juego. Por favor, inténtalo de nuevo más tarde.",
         howToPlay: "Cómo jugar:",
-        controlsLabel: "Controles:"
+        controlsLabel: "Controles:",
+        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
+        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
     },
     fr: {
         currentLanguage: "FR",
@@ -114,7 +119,9 @@ const translations = {
         error: "Erreur",
         couldNotLoadGame: "Impossible de charger les données du jeu. Veuillez réessayer plus tard.",
         howToPlay: "Comment jouer :",
-        controlsLabel: "Contrôles :"
+        controlsLabel: "Contrôles :",
+        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
+        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
     },
     de: {
         currentLanguage: "DE",
@@ -153,7 +160,9 @@ const translations = {
         error: "Fehler",
         couldNotLoadGame: "Spieldaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.",
         howToPlay: "Spielanleitung:",
-        controlsLabel: "Steuerung:"
+        controlsLabel: "Steuerung:",
+        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
+        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
     },
     ja: {
         currentLanguage: "JA",
@@ -192,7 +201,9 @@ const translations = {
         error: "エラー",
         couldNotLoadGame: "ゲームデータを読み込めませんでした。後でもう一度お試しください。",
         howToPlay: "遊び方:",
-        controlsLabel: "操作方法:"
+        controlsLabel: "操作方法:",
+        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
+        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
     },
     ko: {
         currentLanguage: "KO",
@@ -231,7 +242,9 @@ const translations = {
         error: "오류",
         couldNotLoadGame: "게임 데이터를로드 할 수 없습니다. 나중에 다시 시도하십시오.",
         howToPlay: "게임 방법:",
-        controlsLabel: "컨트롤:"
+        controlsLabel: "컨트롤:",
+        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
+        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
     },
     "zh-CN": {
         currentLanguage: "简",
@@ -270,7 +283,9 @@ const translations = {
         error: "错误",
         couldNotLoadGame: "无法加载游戏数据。请稍后再试。",
         howToPlay: "玩法说明：",
-        controlsLabel: "操作控制："
+        controlsLabel: "操作控制：",
+        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
+        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
     },
     "zh-TW": {
         currentLanguage: "繁",
@@ -309,6 +324,8 @@ const translations = {
         error: "錯誤",
         couldNotLoadGame: "無法加載遊戲數據。請稍後再試。",
         howToPlay: "玩法說明：",
-        controlsLabel: "操作控制："
+        controlsLabel: "操作控制：",
+        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
+        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
     }
 };

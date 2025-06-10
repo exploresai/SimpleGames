@@ -22,8 +22,11 @@ function changeLanguage(lang) {
         }
     });
     
-    // 更新当前语言显示
-    document.getElementById('current-language').textContent = lang.toUpperCase();
+    // 更新当前语言显示 (仅当元素存在时)
+    const currentLangElement = document.getElementById('current-language');
+    if (currentLangElement) {
+        currentLangElement.textContent = lang.toUpperCase();
+    }
     
     // 更新侧边栏分类
     const categoryButtons = document.querySelectorAll('#category-list button');
