@@ -79,22 +79,3 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
 } else {
     document.addEventListener('DOMContentLoaded', initLanguage);
 }
-
-
-function populateCategories() {
-    const lang = localStorage.getItem('language') || 'en';
-    
-    categories.forEach((cat) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            <button class="w-full text-left px-2 py-1 rounded flex items-center gap-2 transition-all duration-150 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none" 
-                data-cat="${cat.key}">
-                <span>${cat.emoji}</span>
-                <span class="cat-label">
-                    ${translations[lang]?.categories?.[cat.key] || cat.label}
-                </span>
-            </button>
-        `;
-        categoryList.appendChild(li);
-    });
-}

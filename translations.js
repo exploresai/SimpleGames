@@ -20,7 +20,20 @@ const translations = {
         lang_fr: "Français",
         lang_de: "Deutsch",
         lang_ja: "日本語",
-        lang_ko: "한국어"
+        lang_ko: "한국어",
+        restartGame: "Restart Game",
+        recommended: "Recommended",
+        adSpace: "Ad Space",
+        footer_about: "About",
+        footer_privacy: "Privacy Policy",
+        footer_copyright: "&copy; 2025 simplegames.info - Your source for the best simple online games.",
+        gameNotFound: "Game not found",
+        selectGameFromHomepage: "Please select a game from the homepage.",
+        noGameWithId: "No game found with ID {id}.", // {id} will be replaced in JS
+        error: "Error",
+        couldNotLoadGame: "Could not load game data. Please try again later.",
+        howToPlay: "How to Play:",
+        controlsLabel: "Controls:"
     },
     es: {
         searchPlaceholder: "Buscar juegos...",
@@ -43,7 +56,20 @@ const translations = {
         lang_fr: "Francés",
         lang_de: "Alemán",
         lang_ja: "Japonés",
-        lang_ko: "Coreano"
+        lang_ko: "Coreano",
+        restartGame: "Reiniciar juego",
+        recommended: "Recomendado",
+        adSpace: "Espacio publicitario",
+        footer_about: "Acerca de",
+        footer_privacy: "Política de privacidad",
+        footer_copyright: "&copy; 2025 simplegames.info - Tu fuente de los mejores juegos simples en línea.",
+        gameNotFound: "Juego no encontrado",
+        selectGameFromHomepage: "Por favor, selecciona un juego de la página principal.",
+        noGameWithId: "No se encontró ningún juego con el ID {id}.",
+        error: "Error",
+        couldNotLoadGame: "No se pudieron cargar los datos del juego. Por favor, inténtalo de nuevo más tarde.",
+        howToPlay: "Cómo jugar:",
+        controlsLabel: "Controles:"
     },
     fr: {
         searchPlaceholder: "Rechercher des jeux...",
@@ -66,7 +92,20 @@ const translations = {
         lang_fr: "Français",
         lang_de: "Allemand",
         lang_ja: "Japonais",
-        lang_ko: "Coréen"
+        lang_ko: "Coréen",
+        restartGame: "Recommencer le jeu",
+        recommended: "Recommandé",
+        adSpace: "Espace publicitaire",
+        footer_about: "À propos",
+        footer_privacy: "Politique de confidentialité",
+        footer_copyright: "&copy; 2025 simplegames.info - Votre source pour les meilleurs jeux simples en ligne.",
+        gameNotFound: "Jeu non trouvé",
+        selectGameFromHomepage: "Veuillez sélectionner un jeu depuis la page d'accueil.",
+        noGameWithId: "Aucun jeu trouvé avec l'ID {id}.",
+        error: "Erreur",
+        couldNotLoadGame: "Impossible de charger les données du jeu. Veuillez réessayer plus tard.",
+        howToPlay: "Comment jouer :",
+        controlsLabel: "Contrôles :"
     },
     de: {
         searchPlaceholder: "Spiele suchen...",
@@ -89,7 +128,20 @@ const translations = {
         lang_fr: "Französisch",
         lang_de: "Deutsch",
         lang_ja: "Japanisch",
-        lang_ko: "Koreanisch"
+        lang_ko: "Koreanisch",
+        restartGame: "Spiel neustarten",
+        recommended: "Empfohlen",
+        adSpace: "Werbefläche",
+        footer_about: "Über uns",
+        footer_privacy: "Datenschutzrichtlinie",
+        footer_copyright: "&copy; 2025 simplegames.info - Ihre Quelle für die besten einfachen Online-Spiele.",
+        gameNotFound: "Spiel nicht gefunden",
+        selectGameFromHomepage: "Bitte wählen Sie ein Spiel von der Startseite aus.",
+        noGameWithId: "Kein Spiel mit ID {id} gefunden.",
+        error: "Fehler",
+        couldNotLoadGame: "Spieldaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.",
+        howToPlay: "Spielanleitung:",
+        controlsLabel: "Steuerung:"
     },
     ja: {
         searchPlaceholder: "ゲームを検索...",
@@ -112,7 +164,20 @@ const translations = {
         lang_fr: "フランス語",
         lang_de: "ドイツ語",
         lang_ja: "日本語",
-        lang_ko: "韓国語"
+        lang_ko: "韓国語",
+        restartGame: "ゲームを再起動",
+        recommended: "おすすめ",
+        adSpace: "広告スペース",
+        footer_about: "概要",
+        footer_privacy: "プライバシーポリシー",
+        footer_copyright: "&copy; 2025 simplegames.info - 最高のシンプルオンラインゲームの情報源。",
+        gameNotFound: "ゲームが見つかりません",
+        selectGameFromHomepage: "ホームページからゲームを選択してください。",
+        noGameWithId: "ID {id} のゲームは見つかりませんでした。",
+        error: "エラー",
+        couldNotLoadGame: "ゲームデータを読み込めませんでした。後でもう一度お試しください。",
+        howToPlay: "遊び方:",
+        controlsLabel: "操作方法:"
     },
     ko: {
         searchPlaceholder: "게임 검색...",
@@ -135,6 +200,19 @@ const translations = {
         lang_fr: "프랑스어",
         lang_de: "독일어",
         lang_ja: "일본어",
-        lang_ko: "한국어"
+        lang_ko: "한국어",
+        restartGame: "게임 다시 시작",
+        recommended: "추천",
+        adSpace: "광고 공간",
+        footer_about: "소개",
+        footer_privacy: "개인정보 처리방침",
+        footer_copyright: "&copy; 2025 simplegames.info - 최고의 간단한 온라인 게임 소스입니다.",
+        gameNotFound: "게임을 찾을 수 없습니다",
+        selectGameFromHomepage: "홈페이지에서 게임을 선택하십시오.",
+        noGameWithId: "ID {id}의 게임을 찾을 수 없습니다.",
+        error: "오류",
+        couldNotLoadGame: "게임 데이터를로드 할 수 없습니다. 나중에 다시 시도하십시오.",
+        howToPlay: "게임 방법:",
+        controlsLabel: "컨트롤:"
     }
 };

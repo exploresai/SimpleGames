@@ -163,9 +163,16 @@
         if (existingCollapseButton && existingCollapseButton.id === 'sidebar-collapse') {
             existingCollapseButton.remove();
         }
+
+        const lang = localStorage.getItem('language') || 'en'; // Get current language
+
         categories.forEach((cat) => {
             const li = document.createElement('li');
-            li.innerHTML = `<button class="w-full text-left px-2 py-1 rounded flex items-center gap-2 transition-all duration-150 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none" data-cat="${cat.key}"><span>${cat.emoji}</span> <span class="cat-label">${cat.label}</span></button>`;
+            // Use translated category label if available, otherwise fallback to cat.label
+            const labelText = (translations && translations[lang] && translations[lang].categories && translations[lang].categories[cat.key])
+                              ? translations[lang].categories[cat.key]
+                              : cat.label;
+            li.innerHTML = `<button class="w-full text-left px-2 py-1 rounded flex items-center gap-2 transition-all duration-150 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none" data-cat="${cat.key}"><span>${cat.emoji}</span> <span class="cat-label">${labelText}</span></button>`;
             categoryList.appendChild(li);
         });
     }
