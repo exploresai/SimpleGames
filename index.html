@@ -26,6 +26,7 @@
         tailwind.config = { darkMode: 'class' }
     </script>
     <script src="translations.js"></script>
+    <script src="language.js"></script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BVDV2Y475C"></script>
     <script>
@@ -48,24 +49,24 @@
             <!-- REMOVED md:hidden from sidebar-toggle and moved it here -->
         </div>
         <div class="flex-1 max-w-lg mx-4 flex items-center gap-2">
-            <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full bg-indigo-100 dark:bg-gray-700 text-indigo-500 dark:text-gray-200 shadow hover:bg-indigo-200 dark:hover:bg-gray-600 transition" title="Toggle theme">
+            <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full bg-indigo-100 dark:bg-gray-700 text-indigo-500 dark:text-gray-200 shadow hover:bg-indigo-200 dark:hover:bg-gray-600 transition" data-translate-attr="toggleThemeTitle:title">
                 <span id="theme-icon"></span>
             </button>
-            <input type="text" id="search" placeholder="Search games..." class="w-full rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner placeholder-gray-400 transition" />
+            <input type="text" id="search" data-translate-attr="searchPlaceholder:placeholder" placeholder="Search games..." class="w-full rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner placeholder-gray-400 transition" />
         </div>
         <!-- 语言切换下拉菜单 -->
         <div class="relative">
             <button id="language-toggle" class="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700">
-                <span id="current-language">EN</span>
+                <span id="current-language" data-translate="currentLanguage">EN</span> <!-- Initial text will be replaced -->
                 <span class="text-xs">▼</span>
             </button>
             <ul id="language-menu" class="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 hidden">
-                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en">English</button></li>
-                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="es">Español</button></li>
-                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="fr">Français</button></li>
-                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="de">Deutsch</button></li>
-                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="ja">日本語</button></li>
-                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="ko">한국어</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en" data-translate="lang_en">English</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="es" data-translate="lang_es">Español</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="fr" data-translate="lang_fr">Français</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="de" data-translate="lang_de">Deutsch</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="ja" data-translate="lang_ja">日本語</button></li>
+                <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="ko" data-translate="lang_ko">한국어</button></li>
             </ul>
         </div>
     </nav>
@@ -110,6 +111,19 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
         .dark ::-webkit-scrollbar-thumb { background: #4b5563; }
         ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+
+        /* 修复5：添加CSS确保菜单显示在顶层 */
+        #language-menu {
+            z-index: 1000; /* 确保高于其他元素 */
+            position: absolute;
+            right: 0;
+            top: 100%;
+            min-width: 120px;
+        }
+        #language-toggle {
+            cursor: pointer;
+            position: relative;
+        }
     </style>
 
     <script>
@@ -183,7 +197,9 @@
         }
 
         if (!gamesToRender.length) {
-            gamesGrid.innerHTML = '<div class="col-span-full text-gray-500 dark:text-gray-400 text-center py-12">No games found.</div>';
+            const lang = localStorage.getItem('language') || 'en';
+            const noGamesMsg = (translations[lang] && translations[lang].noGamesFound) ? translations[lang].noGamesFound : "No games found.";
+            gamesGrid.innerHTML = `<div class="col-span-full text-gray-500 dark:text-gray-400 text-center py-12">${noGamesMsg}</div>`;
             return;
         }
 
@@ -227,7 +243,9 @@
                 { id: 8, title: 'Sudoku Zen', category: 'puzzle', cover: 'https://placehold.co/400x300/60a5fa/ffffff?text=Puzzle+Game+2'},
             ];
             renderGames();
-            gamesGrid.innerHTML = '<div class="col-span-full text-red-500 text-center py-12">Failed to load games.json. Displaying mock data.</div>' + gamesGrid.innerHTML;
+            const lang = localStorage.getItem('language') || 'en';
+            const errorMsg = (translations[lang] && translations[lang].failedLoadGames) ? translations[lang].failedLoadGames : "Failed to load games.json. Displaying mock data.";
+            gamesGrid.insertAdjacentHTML('afterbegin', `<div class="col-span-full text-red-500 text-center py-12">${errorMsg}</div>`);
         }
     }
 
@@ -249,10 +267,9 @@
     // Initial page load setup
     document.addEventListener('DOMContentLoaded', () => {
         // 在DOMContentLoaded事件中
-        populateCategories();
-        initLanguage();
+        populateCategories(); // populateCategories from index.html is called
+        // initLanguage(); // REMOVE: initLanguage() is already called by language.js itself
         loadGames();
-
         // Initialize theme based on saved preference or system setting
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -274,18 +291,21 @@
         }
     });
 
-    sidebarBackdrop.addEventListener('click', closeSidebar);
+    // sidebarBackdrop.addEventListener('click', closeSidebar); // MOVED: This listener is already added above
 
     themeToggle.addEventListener('click', () => {
         setTheme(html.classList.contains('dark') ? 'light' : 'dark');
     });
 
     // Sticky navbar effect
+    const mainNavbar = document.getElementById('main-navbar'); // Define mainNavbar
     window.addEventListener('scroll', function() {
-        if (window.scrollY > 10) {
-            main-navbar.classList.add('bg-white/80', 'dark:bg-gray-900/80', 'backdrop-blur-lg');
-        } else {
-            main-navbar.classList.remove('bg-white/80', 'dark:bg-gray-900/80', 'backdrop-blur-lg');
+        if (mainNavbar) { // Check if mainNavbar exists
+            if (window.scrollY > 10) {
+                mainNavbar.classList.add('bg-white/80', 'dark:bg-gray-900/80', 'backdrop-blur-lg');
+            } else {
+                mainNavbar.classList.remove('bg-white/80', 'dark:bg-gray-900/80', 'backdrop-blur-lg');
+            }
         }
     });
 
@@ -294,18 +314,3 @@
     </script>
 </body>
 </html>
-/* 修复5：添加CSS确保菜单显示在顶层 */
-#language-menu {
-    z-index: 1000; /* 确保高于其他元素 */
-    position: absolute;
-    right: 0;
-    top: 100%;
-    min-width: 120px;
-}
-
-#language-toggle {
-    cursor: pointer;
-    position: relative;
-}
-<script src="language.js"></script>
-</body>

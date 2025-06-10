@@ -3,45 +3,138 @@ const translations = {
         searchPlaceholder: "Search games...",
         newGames: "New games",
         playNow: "Play Now",
-        // 其他英文文本
+        toggleThemeTitle: "Toggle theme",
+        noGamesFound: "No games found.",
+        failedLoadGames: "Failed to load games.json. Displaying mock data.",
+        categories: {
+            all: "All",
+            racing: "Racing",
+            action: "Action",
+            puzzle: "Puzzle",
+            arcade: "Arcade",
+            girls: "Girls",
+            simulation: "Simulation"
+        },
+        lang_en: "English",
+        lang_es: "Español",
+        lang_fr: "Français",
+        lang_de: "Deutsch",
+        lang_ja: "日本語",
+        lang_ko: "한국어"
     },
     es: {
         searchPlaceholder: "Buscar juegos...",
         newGames: "Juegos nuevos",
         playNow: "Jugar ahora",
-        // 其他西班牙语文本
+        toggleThemeTitle: "Alternar tema",
+        noGamesFound: "No se encontraron juegos.",
+        failedLoadGames: "Error al cargar games.json. Mostrando datos de prueba.",
+        categories: {
+            all: "Todos",
+            racing: "Carreras",
+            action: "Acción",
+            puzzle: "Rompecabezas",
+            arcade: "Arcade",
+            girls: "Chicas",
+            simulation: "Simulación"
+        },
+        lang_en: "Inglés",
+        lang_es: "Español",
+        lang_fr: "Francés",
+        lang_de: "Alemán",
+        lang_ja: "Japonés",
+        lang_ko: "Coreano"
     },
     fr: {
         searchPlaceholder: "Rechercher des jeux...",
         newGames: "Nouveaux jeux",
         playNow: "Jouer maintenant",
-        // 其他法语文本
+        toggleThemeTitle: "Changer de thème",
+        noGamesFound: "Aucun jeu trouvé.",
+        failedLoadGames: "Échec du chargement de games.json. Affichage des données fictives.",
+        categories: {
+            all: "Tous",
+            racing: "Course",
+            action: "Action",
+            puzzle: "Puzzle",
+            arcade: "Arcade",
+            girls: "Filles",
+            simulation: "Simulation"
+        },
+        lang_en: "Anglais",
+        lang_es: "Espagnol",
+        lang_fr: "Français",
+        lang_de: "Allemand",
+        lang_ja: "Japonais",
+        lang_ko: "Coréen"
     },
     de: {
         searchPlaceholder: "Spiele suchen...",
         newGames: "Neue Spiele",
         playNow: "Jetzt spielen",
-        // 其他德语文本
+        toggleThemeTitle: "Theme wechseln",
+        noGamesFound: "Keine Spiele gefunden.",
+        failedLoadGames: "Laden von games.json fehlgeschlagen. Zeige Mock-Daten.",
+        categories: {
+            all: "Alle",
+            racing: "Rennen",
+            action: "Action",
+            puzzle: "Puzzle",
+            arcade: "Arcade",
+            girls: "Mädchen",
+            simulation: "Simulation"
+        },
+        lang_en: "Englisch",
+        lang_es: "Spanisch",
+        lang_fr: "Französisch",
+        lang_de: "Deutsch",
+        lang_ja: "Japanisch",
+        lang_ko: "Koreanisch"
     },
     ja: {
         searchPlaceholder: "ゲームを検索...",
         newGames: "新しいゲーム",
         playNow: "今すぐプレイ",
-        // 其他日语文本
+        toggleThemeTitle: "テーマを切り替え",
+        noGamesFound: "ゲームが見つかりません。",
+        failedLoadGames: "games.json の読み込みに失敗しました。モックデータを表示しています。",
+        categories: {
+            all: "すべて",
+            racing: "レース",
+            action: "アクション",
+            puzzle: "パズル",
+            arcade: "アーケード",
+            girls: "女の子",
+            simulation: "シミュレーション"
+        },
+        lang_en: "英語",
+        lang_es: "スペイン語",
+        lang_fr: "フランス語",
+        lang_de: "ドイツ語",
+        lang_ja: "日本語",
+        lang_ko: "韓国語"
     },
     ko: {
         searchPlaceholder: "게임 검색...",
         newGames: "새로운 게임",
         playNow: "지금 플레이",
-        // 其他韩语文本
-    },
-    categories: {
-        all: "All",
-        racing: "Racing",
-        action: "Action",
-        puzzle: "Puzzle",
-        arcade: "Arcade",
-        girls: "Girls",
-        simulation: "Simulation"
+        toggleThemeTitle: "테마 전환",
+        noGamesFound: "게임을 찾을 수 없습니다.",
+        failedLoadGames: "games.json을 로드하지 못했습니다. 모의 데이터가 표시됩니다.",
+        categories: {
+            all: "모두",
+            racing: "레이싱",
+            action: "액션",
+            puzzle: "퍼즐",
+            arcade: "아케이드",
+            girls: "소녀",
+            simulation: "시뮬레이션"
+        },
+        lang_en: "영어",
+        lang_es: "스페인어",
+        lang_fr: "프랑스어",
+        lang_de: "독일어",
+        lang_ja: "일본어",
+        lang_ko: "한국어"
     }
 };
