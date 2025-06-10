@@ -320,6 +320,11 @@
 
     sidebarBackdrop.addEventListener('click', closeSidebar);
 
+    // Event listener for the search input
+    searchInput.addEventListener('input', () => {
+        searchTerm = searchInput.value.trim(); // Update searchTerm with the input's value
+        renderGames(); // Re-render the games based on the new search term
+    });
     </script>
 </body>
 </html>
