@@ -9,6 +9,7 @@ const translations = {
         failedLoadGames: "Failed to load games.json. Displaying mock data.",
         categories: {
             all: "All",
+            recently_played: "Recently Played",
             racing: "Racing",
             action: "Action",
             puzzle: "Puzzle",
@@ -37,6 +38,8 @@ const translations = {
         couldNotLoadGame: "Could not load game data. Please try again later.",
         howToPlay: "How to Play:",
         controlsLabel: "Controls:",
+        noRecentlyPlayed: "You haven't played any games recently.",
+        // Pen category translations (example, adjust as needed)
         "pen.setSize": "Set Pen Size",
         "pen.categoryName": "Pen Category",
         "pen.colorMenu.transparency": "Transparency" // Added missing translation
@@ -50,6 +53,7 @@ const translations = {
         noGamesFound: "No se encontraron juegos.",
         failedLoadGames: "Error al cargar games.json. Mostrando datos de prueba.",
         categories: {
+            recently_played: "Jugados recientemente",
             all: "Todos",
             racing: "Carreras",
             action: "Acción",
@@ -79,8 +83,10 @@ const translations = {
         couldNotLoadGame: "No se pudieron cargar los datos del juego. Por favor, inténtalo de nuevo más tarde.",
         howToPlay: "Cómo jugar:",
         controlsLabel: "Controles:",
-        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
-        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
+        noRecentlyPlayed: "No has jugado ningún juego recientemente.",
+        "pen.setSize": "Establecer tamaño del lápiz",
+        "pen.categoryName": "Categoría de lápiz",
+        "pen.colorMenu.transparency": "Transparencia"
     },
     fr: {
         currentLanguage: "FR",
@@ -91,6 +97,7 @@ const translations = {
         noGamesFound: "Aucun jeu trouvé.",
         failedLoadGames: "Échec du chargement de games.json. Affichage des données fictives.",
         categories: {
+            recently_played: "Joués récemment",
             all: "Tous",
             racing: "Course",
             action: "Action",
@@ -120,8 +127,10 @@ const translations = {
         couldNotLoadGame: "Impossible de charger les données du jeu. Veuillez réessayer plus tard.",
         howToPlay: "Comment jouer :",
         controlsLabel: "Contrôles :",
-        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
-        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
+        noRecentlyPlayed: "Vous n'avez joué à aucun jeu récemment.",
+        "pen.setSize": "Définir la taille du stylo",
+        "pen.categoryName": "Catégorie de stylo",
+        "pen.colorMenu.transparency": "Transparence"
     },
     de: {
         currentLanguage: "DE",
@@ -132,6 +141,7 @@ const translations = {
         noGamesFound: "Keine Spiele gefunden.",
         failedLoadGames: "Laden von games.json fehlgeschlagen. Zeige Mock-Daten.",
         categories: {
+            recently_played: "Zuletzt gespielt",
             all: "Alle",
             racing: "Rennen",
             action: "Action",
@@ -161,8 +171,10 @@ const translations = {
         couldNotLoadGame: "Spieldaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.",
         howToPlay: "Spielanleitung:",
         controlsLabel: "Steuerung:",
-        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
-        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
+        noRecentlyPlayed: "Du hast in letzter Zeit keine Spiele gespielt.",
+        "pen.setSize": "Stiftgröße einstellen",
+        "pen.categoryName": "Stiftkategorie",
+        "pen.colorMenu.transparency": "Transparenz"
     },
     ja: {
         currentLanguage: "JA",
@@ -173,6 +185,7 @@ const translations = {
         noGamesFound: "ゲームが見つかりません。",
         failedLoadGames: "games.json の読み込みに失敗しました。モックデータを表示しています。",
         categories: {
+            recently_played: "最近プレイしたゲーム",
             all: "すべて",
             racing: "レース",
             action: "アクション",
@@ -202,8 +215,10 @@ const translations = {
         couldNotLoadGame: "ゲームデータを読み込めませんでした。後でもう一度お試しください。",
         howToPlay: "遊び方:",
         controlsLabel: "操作方法:",
-        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
-        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
+        noRecentlyPlayed: "最近プレイしたゲームはありません。",
+        "pen.setSize": "ペンのサイズを設定",
+        "pen.categoryName": "ペンカテゴリ",
+        "pen.colorMenu.transparency": "透明度"
     },
     ko: {
         currentLanguage: "KO",
@@ -214,6 +229,7 @@ const translations = {
         noGamesFound: "게임을 찾을 수 없습니다.",
         failedLoadGames: "games.json을 로드하지 못했습니다. 모의 데이터가 표시됩니다.",
         categories: {
+            recently_played: "최근 플레이한 게임",
             all: "모두",
             racing: "레이싱",
             action: "액션",
@@ -243,8 +259,10 @@ const translations = {
         couldNotLoadGame: "게임 데이터를로드 할 수 없습니다. 나중에 다시 시도하십시오.",
         howToPlay: "게임 방법:",
         controlsLabel: "컨트롤:",
-        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
-        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
+        noRecentlyPlayed: "최근에 플레이한 게임이 없습니다.",
+        "pen.setSize": "펜 크기 설정",
+        "pen.categoryName": "펜 카테고리",
+        "pen.colorMenu.transparency": "투명도"
     },
     "zh-CN": {
         currentLanguage: "简",
@@ -255,6 +273,7 @@ const translations = {
         noGamesFound: "未找到游戏。",
         failedLoadGames: "加载 games.json 失败。正在显示模拟数据。",
         categories: {
+            recently_played: "最近玩过",
             all: "全部",
             racing: "赛车",
             action: "动作",
@@ -284,8 +303,10 @@ const translations = {
         couldNotLoadGame: "无法加载游戏数据。请稍后再试。",
         howToPlay: "玩法说明：",
         controlsLabel: "操作控制：",
-        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
-        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
+        noRecentlyPlayed: "您最近没有玩过任何游戏。",
+        "pen.setSize": "设置画笔大小",
+        "pen.categoryName": "画笔类别",
+        "pen.colorMenu.transparency": "透明度"
     },
     "zh-TW": {
         currentLanguage: "繁",
@@ -296,6 +317,7 @@ const translations = {
         noGamesFound: "未找到遊戲。",
         failedLoadGames: "加載 games.json 失敗。正在顯示模擬數據。",
         categories: {
+            recently_played: "最近玩過",
             all: "全部",
             racing: "賽車",
             action: "動作",
@@ -325,7 +347,9 @@ const translations = {
         couldNotLoadGame: "無法加載遊戲數據。請稍後再試。",
         howToPlay: "玩法說明：",
         controlsLabel: "操作控制：",
-        "pen.setSize": "Set Pen Size", // PENDIENTE: Traducir
-        "pen.categoryName": "Pen Category" // PENDIENTE: Traducir
+        noRecentlyPlayed: "您最近沒有玩過任何遊戲。",
+        "pen.setSize": "設定畫筆大小",
+        "pen.categoryName": "畫筆類別",
+        "pen.colorMenu.transparency": "透明度"
     }
 };

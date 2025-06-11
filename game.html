@@ -7,56 +7,44 @@
     <meta name="description" content="Play free simple games online. Enjoy action, puzzle, arcade, and more games instantly!">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
 
-    <!-- 1. Pre-theme script to prevent FOUC (Flash of Unstyled Content) -->
     <script>
         const theme = localStorage.getItem('theme');
-        if (
-            theme === 'dark' ||
-            (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         }
     </script>
 
-    <!-- 2. Load Tailwind CSS Library FIRST -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- 3. Configure Tailwind CSS AFTER loading it -->
     <script>
         tailwind.config = { darkMode: 'class' }
     </script>
     <script src="translations.js"></script>
     <script src="language.js"></script>
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="HA8N24Trd3lr+fg36VkJhw" async></script>
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BVDV2Y475C"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-    
-            gtag('config', 'G-BVDV2Y475C');
-        </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BVDV2Y475C"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BVDV2Y475C');
+    </script>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col"> <!-- body is flex container -->
-    <!-- Top Navbar -->
+<body class="bg-gray-50 dark:bg-gray-900 min-h-screen flex flex-col">
     <nav id="main-navbar" class="bg-gradient-to-r from-white via-gray-100 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900/90 shadow text-gray-900 dark:text-white px-6 py-3 flex items-center justify-between sticky top-0 z-50 transition-all duration-300">
         <div class="flex items-center gap-3">
-            <button id="sidebar-toggle" class="text-2xl focus:outline-none mr-2">☰</button> <!-- MODIFIED: Moved and made always visible -->
+            <button id="sidebar-toggle" class="text-2xl focus:outline-none mr-2">☰</button>
             <a href="index.html" class="flex items-center gap-2">
                 <span class="inline-block w-8 h-8 mr-2"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2a2 2 0 012-2h2a2 2 0 012 2v2m-6 0a2 2 0 01-2-2v-2a2 2 0 012-2h2a2 2 0 012 2v2m-6 0V7a2 2 0 012-2h2a2 2 0 012 2v2m6 0V7a2 2 0 00-2-2h-2a2 2 0 00-2 2v2"/></svg></span>
                 <span class="text-2xl font-extrabold tracking-wider">Simple Games</span>
             </a>
-            <!-- REMOVED md:hidden from sidebar-toggle and moved it here -->
         </div>
-        <div class="flex-1 max-w-lg mx-4 flex items-center gap-2"> <!-- MODIFIED: Ensured this div exists for consistency -->
+        <div class="flex-1 max-w-lg mx-4 flex items-center gap-2">
             <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full bg-indigo-100 dark:bg-gray-700 text-indigo-500 dark:text-gray-200 shadow hover:bg-indigo-200 dark:hover:bg-gray-600 transition" data-translate-attr="toggleThemeTitle:title">
                 <span id="theme-icon"></span>
             </button>
-            <!-- Search input - same as index.html -->
             <input type="text" id="search" data-translate-attr="searchPlaceholder:placeholder" placeholder="Search games..." class="w-full rounded-xl bg-white dark:bg-gray-700 text-gray-900 dark:text-white px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-inner placeholder-gray-400 transition" />
         </div>
-        <!-- Language toggle dropdown - same as index.html -->
         <div class="relative">
             <button id="language-toggle" class="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-700">
                 <span id="current-language" data-translate="currentLanguage">EN</span>
@@ -65,7 +53,6 @@
             <ul id="language-menu" class="absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 hidden">
                 <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="en" data-translate="lang_en">English</button></li>
                 <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="es" data-translate="lang_es">Español</button></li>
-                <!-- Add other languages as in index.html -->
                 <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="fr" data-translate="lang_fr">Français</button></li>
                 <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="de" data-translate="lang_de">Deutsch</button></li>
                 <li><button class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700" data-lang="ja" data-translate="lang_ja">日本語</button></li>
@@ -76,29 +63,24 @@
         </div>
     </nav>
 
-    <!-- Container for Sidebar and Main Content -->
-    <div class="flex flex-1 overflow-hidden"> <!-- This container takes remaining height and allows content to scroll -->
-        <!-- Sidebar -->
-        <aside id="sidebar" class="fixed top-0 left-0 z-40 w-40 h-screen pt-20 bg-white/90 dark:bg-gray-800/90 shadow-md transition-transform -translate-x-full md:translate-x-0" aria-label="Sidebar">
-            <!-- REMOVED the old sidebar-collapse button -->
+    <div class="flex flex-1 overflow-hidden">
+        <aside id="sidebar" class="fixed top-0 left-0 z-40 w-40 h-screen pt-20 bg-white/90 dark:bg-gray-800/90 shadow-md transition-transform -translate-x-full" aria-label="Sidebar">
             <ul id="category-list" class="space-y-2 pt-2">
-                <!-- Categories will be populated by JS -->
-            </ul>
+                </ul>
         </aside>
 
-        <!-- Main Content Area -->
-        <main id="main-content" class="p-6 md:ml-40 transition-all duration-300 flex flex-col flex-1 overflow-y-auto"> <!-- MODIFIED: Changed h-screen to flex-1, ADDED overflow-y-auto -->
+        <main id="main-content" class="p-6 transition-all duration-300 flex flex-col flex-1 overflow-y-auto">
             <div class="flex gap-6 flex-1">
-                <div class="flex-1 flex flex-col"> <!-- Removed overflow-y-auto here, let main-content handle it -->
+                <div class="flex-1 flex flex-col">
                     <div class="w-full max-w-5xl mx-auto flex flex-col flex-1">
                         <div id="game-iframe-container" class="w-full bg-black rounded-xl shadow-2xl overflow-hidden border-2 border-gray-200 dark:border-gray-700 relative flex-1 min-h-[800px] flex-grow">
                             <iframe id="game-iframe" src="" class="absolute top-0 left-0 w-full h-full border-0" allowfullscreen></iframe>
                         </div>
-                        <div class="w-full mt-4 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 overflow-y-auto min-h-0"> <!-- Added overflow-y-auto and min-h-0 -->
+                        <div class="w-full mt-4 bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-gray-700 overflow-y-auto min-h-0">
                             <h1 id="game-title" class="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100"></h1>
                             <div id="game-desc" class="mb-4 text-gray-600 dark:text-gray-300"></div>
                             <div id="game-howto" class="mb-4 text-gray-600 dark:text-gray-300"></div>
-                            <div id="game-controls-container" class="mb-4" style="display: none;"> <!-- Initially hidden, shown if controls exist -->
+                            <div id="game-controls-container" class="mb-4" style="display: none;">
                                 <span class="font-semibold text-gray-800 dark:text-gray-200" data-translate="controlsLabel">Controls:</span>
                                 <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 text-sm mt-1" id="controls-list">
                                 </ul>
@@ -107,45 +89,34 @@
                         </div>
                     </div>
                 </div>
-                <!-- Right Sidebar: Recommendations -->
                 <aside class="hidden lg:block w-64 flex-shrink-0">
                     <div class="bg-white dark:bg-gray-800 rounded-xl h-32 flex items-center justify-center text-gray-400 dark:text-gray-500 text-lg mb-6 shadow-lg border border-gray-200 dark:border-gray-700" data-translate="adSpace">Ad Space</div>
                     <div class="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-gray-700">
                         <h2 class="text-gray-900 dark:text-gray-100 font-bold mb-3 text-lg" data-translate="recommended">Recommended</h2>
                         <div id="recommend-list" class="flex flex-col gap-3">
-                            <!-- Recommendation cards will be populated by JS -->
-                        </div>
+                            </div>
                     </div>
                 </aside>
             </div>
         </main>
-    </div> <!-- End of container for Sidebar and Main Content -->
-    
-    <!-- Backdrop for mobile sidebar -->
-    <div id="sidebar-backdrop" class="bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-30 hidden md:hidden"></div>
+    </div> <div id="sidebar-backdrop" class="bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-30 hidden"></div>
+
+    <footer id="page-footer" class="border-t border-gray-200 dark:border-gray-700 pt-6 pb-4 text-center text-gray-500 dark:text-gray-400 text-sm bg-white dark:bg-gray-800 mt-auto transition-all duration-300">
+        <div class="flex justify-center gap-8 mb-2">
+            <a href="#about" class="hover:text-indigo-500 dark:hover:text-indigo-400" data-translate="footer_about">About</a>
+            <a href="#privacy" class="hover:text-indigo-500 dark:hover:text-indigo-400" data-translate="footer_privacy">Privacy Policy</a>
+        </div>
+        <span data-translate="footer_copyright">&copy; 2025 simplegames.info - Your source for the best simple online games.</span>
+    </footer>
 
     <style>
-        .sidebar-collapsed { width: 56px !important; }
-        .sidebar-collapsed #category-list button span:not(:first-child),
-        .sidebar-collapsed #category-list button .cat-label,
-        .sidebar-collapsed .text-lg { display: none !important; }
-        .sidebar-collapsed #category-list button { justify-content: center; }
-        .sidebar-collapsed #sidebar-chevron { transform: rotate(180deg); }
-        .sidebar-collapsed #category-list button { padding-left: 0.5rem; padding-right: 0.5rem; }
-        .sidebar-collapsed ~ #main-content { margin-left: 56px !important; }
-        @media (min-width: 768px) {
-            .sidebar-collapsed ~ #main-content { margin-left: 56px !important; }
-        }
+        /* Styles are mostly unchanged */
         body, html { transition: background 0.3s, color 0.3s; }
-        /* Optional: Scrollbar styling */
         ::-webkit-scrollbar { width: 8px; background: #f1f5f9; }
         .dark ::-webkit-scrollbar { background: #111827; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
         .dark ::-webkit-scrollbar-thumb { background: #4b5563; }
         ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
-    </style>
-    <!-- Added CSS for language menu positioning, same as index.html -->
-    <style>
         #language-menu {
             z-index: 1000; 
             position: absolute;
@@ -158,27 +129,25 @@
             position: relative;
         }
     </style>
-<footer id="page-footer" class="border-t border-gray-200 dark:border-gray-700 pt-6 pb-4 text-center text-gray-500 dark:text-gray-400 text-sm bg-white dark:bg-gray-800 mt-8 md:ml-40 transition-all duration-300">
-        <div class="flex justify-center gap-8 mb-2">
-            <a href="#about" class="hover:text-indigo-500 dark:hover:text-indigo-400" data-translate="footer_about">About</a>
-            <a href="#privacy" class="hover:text-indigo-500 dark:hover:text-indigo-400" data-translate="footer_privacy">Privacy Policy</a>
-        </div>
-        <span data-translate="footer_copyright">&copy; 2025 simplegames.info - Your source for the best simple online games.</span>
-    </footer>
 
     <script>
     // --- STATIC DATA AND SETUP ---
+    // 修正1：在分类列表中加入 "Recently Played"
     const categories = [
-        { key: 'all', label: 'All', emoji: '🎮' }, { key: 'racing', label: 'Racing', emoji: '🏍' },
-        { key: 'action', label: 'Action', emoji: '⚔️' }, { key: 'puzzle', label: 'Puzzle', emoji: '🧩' },
-        { key: 'arcade', label: 'Arcade', emoji: '🕹️' }, { key: 'girls', label: 'Girls', emoji: '👧' },
+        { key: 'all', label: 'All', emoji: '🎮' },
+        { key: 'recently_played', label: 'Recently Played', emoji: '🕒' },
+        { key: 'racing', label: 'Racing', emoji: '🏍' },
+        { key: 'action', label: 'Action', emoji: '⚔️' },
+        { key: 'puzzle', label: 'Puzzle', emoji: '🧩' },
+        { key: 'arcade', label: 'Arcade', emoji: '🕹️' },
+        { key: 'girls', label: 'Girls', emoji: '👧' },
         { key: 'simulation', label: 'Simulation', emoji: '🛠️' },
     ];
+    
     // --- DOM ELEMENTS ---
     const categoryList = document.getElementById('category-list');
     const sidebar = document.getElementById('sidebar');
     const sidebarToggle = document.getElementById('sidebar-toggle');
-    // REMOVED: const sidebarCollapse = document.getElementById('sidebar-collapse');
     const mainContent = document.getElementById('main-content');
     const themeToggle = document.getElementById('theme-toggle');
     const html = document.documentElement;
@@ -186,90 +155,80 @@
     const recommendList = document.getElementById('recommend-list');
     const gameTitle = document.getElementById('game-title');
     const gameIframe = document.getElementById('game-iframe');
-    const gameIframeContainer = document.getElementById('game-iframe-container'); // Added
     const gameDesc = document.getElementById('game-desc');
     const gameHowto = document.getElementById('game-howto');
     const controlsList = document.getElementById('controls-list');
-    const gameControlsContainer = document.getElementById('game-controls-container'); // ADDED: Get reference to the controls container
+    const gameControlsContainer = document.getElementById('game-controls-container');
     const restartBtn = document.getElementById('restart-btn');
     const mainNavbar = document.getElementById('main-navbar');
     const sidebarBackdrop = document.getElementById('sidebar-backdrop');
-    const pageFooter = document.getElementById('page-footer'); // Added to manage footer margin
+    const pageFooter = document.getElementById('page-footer');
+
     // --- STATE ---
     let allGames = [];
     let currentGameId = null;
+    // 修正2：引入与 index.html 一致的侧边栏状态管理
+    let isSidebarOpen = window.innerWidth >= 768; // 桌面端默认打开
+
+    // --- RECENTLY PLAYED FUNCTIONS ---
+    const RECENTLY_PLAYED_KEY_GAME = 'recentlyPlayedGames';
+    const MAX_RECENTLY_PLAYED_STORAGE_LIMIT = 20;
+
+    function addGameToRecentlyPlayedStorage(gameId) {
+        if (!gameId) return;
+        try {
+            let recentGames = JSON.parse(localStorage.getItem(RECENTLY_PLAYED_KEY_GAME) || '[]');
+            recentGames = recentGames.filter(id => String(id) !== String(gameId));
+            recentGames.unshift(String(gameId));
+            recentGames = recentGames.slice(0, MAX_RECENTLY_PLAYED_STORAGE_LIMIT);
+            localStorage.setItem(RECENTLY_PLAYED_KEY_GAME, JSON.stringify(recentGames));
+        } catch (e) {
+            console.error("Error updating recently played games:", e);
+        }
+    }
 
     // --- FUNCTIONS ---
+    
+    // 修正2：使用与 index.html 相同的侧边栏状态更新函数
+    function updateSidebarState() {
+        if (isSidebarOpen) {
+            sidebar.classList.remove('-translate-x-full');
+            mainContent.classList.add('md:ml-40');
+            pageFooter.classList.add('md:ml-40');
+            if (window.innerWidth < 768) {
+                sidebarBackdrop.classList.remove('hidden');
+            }
+        } else {
+            sidebar.classList.add('-translate-x-full');
+            mainContent.classList.remove('md:ml-40');
+            pageFooter.classList.remove('md:ml-40');
+            sidebarBackdrop.classList.add('hidden');
+        }
+    }
+    
     function populateCategories() {
-        // Ensure old collapse button is removed if dynamically added
-        const existingCollapseButtonLi = categoryList.querySelector('li.flex.justify-center');
-        if (existingCollapseButtonLi && existingCollapseButtonLi.querySelector('#sidebar-collapse')) {
-            existingCollapseButtonLi.remove();
-        }
-        // Or, more directly if it's always the first child and not part of the loop:
-        const oldCollapseButton = document.getElementById('sidebar-collapse');
-        if(oldCollapseButton && oldCollapseButton.parentElement.tagName === 'LI'){
-            oldCollapseButton.parentElement.remove();
-        } else if (oldCollapseButton) {
-            oldCollapseButton.remove();
-        }
-
-        const lang = localStorage.getItem('language') || 'en'; // Define lang here
-
+        categoryList.innerHTML = ''; // 清空以备语言切换
+        const lang = localStorage.getItem('language') || 'en';
         categories.forEach((cat) => {
             const li = document.createElement('li');
-              // Use translated category label if available, otherwise fallback to cat.label
-              const labelText = (translations && translations[lang] && translations[lang].categories && translations[lang].categories[cat.key])
-                              ? translations[lang].categories[cat.key]
-                              : cat.label;
-
-            li.innerHTML = `<button class="w-full text-left px-2 py-1 rounded flex items-center gap-2 transition-all duration-150 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none" data-cat="${cat.key}"><span>${cat.emoji}</span> <span class="cat-label">${labelText}</span></button>`;
+            const labelText = (translations && translations[lang] && translations[lang].categories && translations[lang].categories[cat.key])
+                                ? translations[lang].categories[cat.key]
+                                : cat.label;
+            // 点击侧边栏按钮现在会跳转到主页并带上分类参数
+            li.innerHTML = `<a href="index.html?category=${cat.key}" class="w-full text-left px-2 py-1 rounded flex items-center gap-2 transition-all duration-150 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"><span>${cat.emoji}</span> <span class="cat-label">${labelText}</span></a>`;
             categoryList.appendChild(li);
         });
-    }
-
-    function closeSidebar() {
-        sidebar.classList.add('-translate-x-full');
-        sidebar.classList.remove('md:translate-x-0');
-        sidebarBackdrop.classList.add('hidden');
-        mainContent.classList.remove('md:ml-40');
-        mainContent.classList.add('md:ml-0');
-        if (pageFooter) {
-            pageFooter.classList.remove('md:ml-40');
-            pageFooter.classList.add('md:ml-0');
-        }
-    }
-    function openSidebar() {
-        sidebar.classList.remove('-translate-x-full');
-        sidebar.classList.add('md:translate-x-0');
-        sidebarBackdrop.classList.remove('hidden'); 
-        mainContent.classList.remove('md:ml-0');
-        mainContent.classList.add('md:ml-40');
-        if (pageFooter) { 
-            pageFooter.classList.remove('md:ml-0');
-            pageFooter.classList.add('md:ml-40');
-        }
-        adjustGameContainerSize(); // Call on sidebar change
-    }
-
-    // Removed adjustGameContainerSize function as flexbox will handle height
-    function adjustGameContainerSize() {
-        // This function is no longer needed with the simplified flexbox layout
-        // The iframe container will take up the available space due to flex-1
-        // console.log("adjustGameContainerSize called, but logic is now handled by CSS flexbox."); // Keep console log for debugging if needed
     }
 
     function renderRecommendations(games, currentId) {
         let others = games.filter(g => String(g.id) !== String(currentId));
         const shuffled = others.sort(() => 0.5 - Math.random());
-        const picks = shuffled.slice(0, 5); // Show 5 recommendations
+        const picks = shuffled.slice(0, 5);
         recommendList.innerHTML = picks.map(g => `
             <a href="?id=${g.id}" class="relative group block rounded-lg overflow-hidden bg-white dark:bg-gray-700 hover:scale-105 transition-transform duration-200 shadow">
                 <img src="${g.cover || ''}" alt="${g.title}" class="w-full h-20 object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/240x80/e2e8f0/475569?text=No+Image';">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="absolute bottom-1 left-2 text-white text-xs font-semibold">
-                    ${g.title}
-                </div>
+                <div class="absolute bottom-1 left-2 text-white text-xs font-semibold">${g.title}</div>
             </a>
         `).join('');
     }
@@ -299,17 +258,17 @@
                 return;
             }
 
+            addGameToRecentlyPlayedStorage(game.id);
             document.title = game.title + ' | Simple Games';
             gameTitle.textContent = game.title;
-            gameIframe.src = game.iframe || 'about:blank'; // Set iframe src
-            gameDesc.innerHTML = game.desc ? game.desc.replace(/\n/g, '<br>') : ''; // Replace newlines with <br> for proper HTML rendering
+            gameIframe.src = game.iframe || 'about:blank';
+            gameDesc.innerHTML = game.desc ? game.desc.replace(/\n/g, '<br>') : '';
             
             if (game.howto) {
                 const howToPlayLabel = translations[lang]?.howToPlay || "How to Play:";
                 gameHowto.innerHTML = `<span class="font-semibold text-gray-800 dark:text-gray-200">${howToPlayLabel}</span> ${game.howto}`;
                 gameHowto.style.display = 'block';
             } else {
-                gameHowto.innerHTML = '';
                 gameHowto.style.display = 'none';
             }
 
@@ -320,12 +279,9 @@
                 gameControlsContainer.style.display = 'none';
             }
 
-            restartBtn.onclick = function() {
-                gameIframe.src = gameIframe.src;
-            };
+            restartBtn.onclick = () => gameIframe.src = gameIframe.src;
             
             renderRecommendations(allGames, game.id);
-            // adjustGameContainerSize(); // Removed call, height is handled by CSS
 
         } catch (error) {
             console.error("Failed to load and render game:", error);
@@ -349,58 +305,42 @@
     // --- EVENT LISTENERS ---
     document.addEventListener('DOMContentLoaded', () => {
         populateCategories();
-        // initLanguage(); // language.js calls this itself.
         loadAndRenderPage(); 
 
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            setTheme('dark');
-        } else {
-            setTheme('light');
-        }
-
-        // Initialize sidebar state based on screen size
-        if (window.innerWidth < 768) { // Tailwind's 'md' breakpoint
-            closeSidebar(); 
-        } else {
-            openSidebar();
-        }
-        // adjustGameContainerSize(); // Removed call, height is handled by CSS
-    });
-
-    sidebarToggle.addEventListener('click', () => {
-        // Check the current effective state (considering md:translate-x-0)
-        const isSidebarVisible = !sidebar.classList.contains('-translate-x-full') || (window.innerWidth >= 768 && sidebar.classList.contains('md:translate-x-0'));
+        setTheme(savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light');
         
-        if (isSidebarVisible && !sidebar.classList.contains('-translate-x-full')) { 
-            closeSidebar();
-        } else {
-            openSidebar();
-        }
+        // 修正2：使用新的状态函数初始化侧边栏
+        updateSidebarState();
+    });
+
+    // 修正2：简化侧边栏切换事件
+    sidebarToggle.addEventListener('click', () => {
+        isSidebarOpen = !isSidebarOpen;
+        updateSidebarState();
     });
     
-    // REMOVED: sidebarCollapse.addEventListener('click', ...);
-    
-    // Redirect to homepage with category filter
-    categoryList.addEventListener('click', (e) => {
-        const button = e.target.closest('button');
-        if (button) {
-            const category = button.getAttribute('data-cat');
-            window.location.href = `index.html?category=${category}`;
-        }
+    // 修正2：简化背景遮罩点击事件
+    sidebarBackdrop.addEventListener('click', () => {
+        isSidebarOpen = false;
+        updateSidebarState();
     });
     
-    // Search redirects to homepage with search query
+    // 侧边栏的点击事件已经由 <a> 标签的 href 属性处理，无需额外JS监听
+    
+    // 搜索框事件
     searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            window.location.href = `index.html?search=${searchInput.value}`;
+        if (e.key === 'Enter' && searchInput.value.trim()) {
+            window.location.href = `index.html?search=${encodeURIComponent(searchInput.value.trim())}`;
         }
     });
 
+    // 主题切换事件
     themeToggle.addEventListener('click', () => {
         setTheme(html.classList.contains('dark') ? 'light' : 'dark');
     });
 
+    // 导航栏滚动效果
     window.addEventListener('scroll', function() {
         if (window.scrollY > 10) {
             mainNavbar.classList.add('bg-white/80', 'dark:bg-gray-900/80', 'backdrop-blur-lg');
@@ -408,8 +348,6 @@
             mainNavbar.classList.remove('bg-white/80', 'dark:bg-gray-900/80', 'backdrop-blur-lg');
         }
     });
-
-    sidebarBackdrop.addEventListener('click', closeSidebar);
     </script>
 </body>
 </html>
